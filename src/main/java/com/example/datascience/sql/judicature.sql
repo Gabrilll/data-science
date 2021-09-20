@@ -1,4 +1,4 @@
--- Host: localhost    Database: judicature
+-- Host: localhost    Database: data_science
 -- ------------------------------------------------------
 
 /*!40101 SET @OLD_CHARACTER_SET_CLIENT=@@CHARACTER_SET_CLIENT */;
@@ -13,26 +13,27 @@
 /*!40111 SET @OLD_SQL_NOTES=@@SQL_NOTES, SQL_NOTES=0 */;
 
 --
--- Table structure for table `example`
+-- Table structure for table `word`
 --
 
-DROP TABLE IF EXISTS `example`;
+DROP TABLE IF EXISTS `word`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!40101 SET character_set_client = utf8 */;
-CREATE TABLE `example` (
-  `id` int(11) NOT NULL DEFAULT '0',
-  PRIMARY KEY (`id`)
-) ENGINE=MyISAM DEFAULT CHARSET=latin1;
+CREATE TABLE `word` (
+  `token` varchar(255) NOT NULL,
+  `text` text,
+  PRIMARY KEY (`token`)
+) ENGINE=MyISAM DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
--- Dumping data for table `example`
+-- Dumping data for table `word`
 --
 
-LOCK TABLES `example` WRITE;
-/*!40000 ALTER TABLE `example` DISABLE KEYS */;
-INSERT INTO `example` VALUES (1);
-/*!40000 ALTER TABLE `example` ENABLE KEYS */;
+LOCK TABLES `word` WRITE;
+/*!40000 ALTER TABLE `word` DISABLE KEYS */;
+INSERT INTO `word` VALUES ('样例', '文章');
+/*!40000 ALTER TABLE `word` ENABLE KEYS */;
 UNLOCK TABLES;
 /*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
 
@@ -46,4 +47,308 @@ UNLOCK TABLES;
 
 -- Dump completed on 2019-01-13 13:43:57
 
-SQL
+
+--
+-- Table structure for table `paragraph`
+--
+
+DROP TABLE IF EXISTS `paragraph`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `paragraph` (
+    `id` int(11) NOT NULL AUTO_INCREMENT,
+    `word_token` varchar(255) NOT NULL,
+    `text` varchar(255) DEFAULT NULL,
+    `paragraph_format_id` int(11),
+    `font_format_id` int(11),
+    `is_table_row_end` int(1) DEFAULT 0,
+    `is_in_table` int(1) DEFAULT 0,
+    `table_id` int(11),
+    PRIMARY KEY (`id`, `word_token`),
+    FOREIGN KEY (`word_token`) references word(`token`),
+    FOREIGN KEY (`paragraph_format_id`) references paragraph_format(`id`),
+    FOREIGN KEY (`font_format_id`) references font_format(`id`),
+    FOREIGN KEY (`table_id`) references table_info(`id`)
+)   ENGINE=MyISAM
+    AUTO_INCREMENT = 3
+    DEFAULT CHARSET=utf8;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+
+--
+-- Dumping data for table `paragraph`
+--
+
+LOCK TABLES `paragraph` WRITE;
+/*!40000 ALTER TABLE `paragraph` DISABLE KEYS */;
+INSERT INTO `paragraph` VALUES (1, '样例', '文章', 1, 1, 0, 0, 1),
+                               (2, '样例', '文章', 1, 1, 0, 0, 1);
+/*!40000 ALTER TABLE `paragraph` ENABLE KEYS */;
+UNLOCK TABLES;
+/*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
+
+/*!40101 SET SQL_MODE=@OLD_SQL_MODE */;
+/*!40014 SET FOREIGN_KEY_CHECKS=@OLD_FOREIGN_KEY_CHECKS */;
+/*!40014 SET UNIQUE_CHECKS=@OLD_UNIQUE_CHECKS */;
+/*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
+/*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;
+/*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
+/*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
+
+-- Dump completed on 2019-01-13 13:43:57
+
+
+--
+-- Table structure for table `image`
+--
+
+DROP TABLE IF EXISTS `image`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `image` (
+     `id` int(11) NOT NULL AUTO_INCREMENT,
+     `word_token` varchar(255) NOT NULL,
+     `paragraph_id_before` int(11),
+     `paragraph_id_after` int(11),
+     `name` varchar(255),
+     `suggest_file_ext` varchar(255),
+     `width` int(11),
+     `height` int(11),
+     `base64_content` varchar(255),
+     PRIMARY KEY (`id`, `word_token`),
+     FOREIGN KEY (`word_token`) references word(`token`),
+     FOREIGN KEY (`paragraph_id_before`) references paragraph(`id`),
+     FOREIGN KEY (`paragraph_id_after`) references paragraph(`id`)
+)   ENGINE=MyISAM
+    AUTO_INCREMENT = 2
+    DEFAULT CHARSET=utf8;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `image`
+--
+
+LOCK TABLES `image` WRITE;
+/*!40000 ALTER TABLE `image` DISABLE KEYS */;
+INSERT INTO `image` VALUES (1, '样例', 1, 2, '样例1', null, 0, 0, null);
+/*!40000 ALTER TABLE `image` ENABLE KEYS */;
+UNLOCK TABLES;
+/*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
+
+/*!40101 SET SQL_MODE=@OLD_SQL_MODE */;
+/*!40014 SET FOREIGN_KEY_CHECKS=@OLD_FOREIGN_KEY_CHECKS */;
+/*!40014 SET UNIQUE_CHECKS=@OLD_UNIQUE_CHECKS */;
+/*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
+/*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;
+/*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
+/*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
+
+-- Dump completed on 2019-01-13 13:43:57
+
+--
+-- Table structure for table `table_info`
+--
+
+DROP TABLE IF EXISTS `table_info`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `table_info` (
+    `id` int(11) NOT NULL AUTO_INCREMENT,
+    `word_token` varchar(255) NOT NULL,
+    `paragraph_id_before` int(11),
+    `paragraph_id_after` int(11),
+    PRIMARY KEY (`id`, `word_token`),
+    FOREIGN KEY (`word_token`) references word(`token`),
+    FOREIGN KEY (`paragraph_id_before`) references paragraph(`id`),
+    FOREIGN KEY (`paragraph_id_after`) references paragraph(`id`)
+)   ENGINE=MyISAM
+    AUTO_INCREMENT = 2
+    DEFAULT CHARSET=utf8;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `table_info`
+--
+
+LOCK TABLES `table_info` WRITE;
+/*!40000 ALTER TABLE `table_info` DISABLE KEYS */;
+INSERT INTO `table_info` VALUES (1, '样例', 1, 2);
+/*!40000 ALTER TABLE `table_info` ENABLE KEYS */;
+UNLOCK TABLES;
+/*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
+
+/*!40101 SET SQL_MODE=@OLD_SQL_MODE */;
+/*!40014 SET FOREIGN_KEY_CHECKS=@OLD_FOREIGN_KEY_CHECKS */;
+/*!40014 SET UNIQUE_CHECKS=@OLD_UNIQUE_CHECKS */;
+/*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
+/*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;
+/*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
+/*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
+
+-- Dump completed on 2019-01-13 13:43:57
+
+--
+-- Table structure for table `table_content`
+--
+
+DROP TABLE IF EXISTS `table_content`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `table_content` (
+    `table_id` int(11) NOT NULL,
+    `word_token` varchar(255) NOT NULL,
+    `row` int(11) NOT NULL,
+    `col` int(11) NOT NULL,
+    `text` varchar(225),
+    PRIMARY KEY (`table_id`, `word_token`, `row`, `col`),
+    FOREIGN KEY (`word_token`) references word(`token`),
+    FOREIGN KEY (`table_id`) references table_info(`id`)
+)   ENGINE=MyISAM
+    DEFAULT CHARSET=utf8;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `example`
+--
+
+LOCK TABLES `table_content` WRITE;
+/*!40000 ALTER TABLE `table_content` DISABLE KEYS */;
+INSERT INTO `table_content` VALUES (1, '样例', 1, 1, '样例');
+/*!40000 ALTER TABLE `table_content` ENABLE KEYS */;
+UNLOCK TABLES;
+/*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
+
+/*!40101 SET SQL_MODE=@OLD_SQL_MODE */;
+/*!40014 SET FOREIGN_KEY_CHECKS=@OLD_FOREIGN_KEY_CHECKS */;
+/*!40014 SET UNIQUE_CHECKS=@OLD_UNIQUE_CHECKS */;
+/*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
+/*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;
+/*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
+/*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
+
+-- Dump completed on 2019-01-13 13:43:57
+
+
+--
+-- Table structure for table `title`
+--
+
+DROP TABLE IF EXISTS `title`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `title` (
+     `id` int(11) NOT NULL AUTO_INCREMENT,
+     `word_token` varchar(255) NOT NULL,
+     `text` varchar(225),
+     `paragraph_format_id` int(11) NOT NULL,
+     PRIMARY KEY (`id`, `word_token`),
+     FOREIGN KEY (`word_token`) references word(`token`),
+     FOREIGN KEY (`paragraph_format_id`) references paragraph_format(`id`)
+)   ENGINE=MyISAM
+    AUTO_INCREMENT=2
+    DEFAULT CHARSET=utf8;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `title`
+--
+
+LOCK TABLES `title` WRITE;
+/*!40000 ALTER TABLE `title` DISABLE KEYS */;
+INSERT INTO `title` VALUES (1, '样例', '样例', 1);
+/*!40000 ALTER TABLE `title` ENABLE KEYS */;
+UNLOCK TABLES;
+/*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
+
+/*!40101 SET SQL_MODE=@OLD_SQL_MODE */;
+/*!40014 SET FOREIGN_KEY_CHECKS=@OLD_FOREIGN_KEY_CHECKS */;
+/*!40014 SET UNIQUE_CHECKS=@OLD_UNIQUE_CHECKS */;
+/*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
+/*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;
+/*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
+/*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
+
+-- Dump completed on 2019-01-13 13:43:57
+
+
+--
+-- Table structure for table `paragraph_format`
+--
+
+DROP TABLE IF EXISTS `paragraph_format`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `paragraph_format` (
+    `id` int(11) NOT NULL AUTO_INCREMENT,
+    `indent_from_left` int(11),
+    `indent_from_right` int(11),
+    `first_line_indent` int(11),
+    `lvl` int(11),
+    PRIMARY KEY (`id`)
+)   ENGINE=MyISAM
+    AUTO_INCREMENT = 2
+    DEFAULT CHARSET=utf8;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `paragraph_format`
+--
+
+LOCK TABLES `paragraph_format` WRITE;
+/*!40000 ALTER TABLE `paragraph_format` DISABLE KEYS */;
+INSERT INTO `paragraph_format` VALUES (1, 0, 0, 0, 0);
+/*!40000 ALTER TABLE `paragraph_format` ENABLE KEYS */;
+UNLOCK TABLES;
+/*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
+
+/*!40101 SET SQL_MODE=@OLD_SQL_MODE */;
+/*!40014 SET FOREIGN_KEY_CHECKS=@OLD_FOREIGN_KEY_CHECKS */;
+/*!40014 SET UNIQUE_CHECKS=@OLD_UNIQUE_CHECKS */;
+/*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
+/*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;
+/*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
+/*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
+
+-- Dump completed on 2019-01-13 13:43:57
+
+--
+-- Table structure for table `font_format`
+--
+
+DROP TABLE IF EXISTS `font_format`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `font_format` (
+    `id` int(11) NOT NULL AUTO_INCREMENT,
+    `color` varchar(255),
+    `font_size` int(11),
+    `font_name` int(11),
+    `is_bold` int(1) DEFAULT 0,
+    `is_italic` int(1) DEFAULT 0,
+    `font_alignment` int(11),
+    PRIMARY KEY (`id`)
+)   ENGINE=MyISAM
+    AUTO_INCREMENT=2
+    DEFAULT CHARSET=utf8;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `example`
+--
+
+LOCK TABLES `font_format` WRITE;
+/*!40000 ALTER TABLE `font_format` DISABLE KEYS */;
+INSERT INTO `font_format` VALUES (1, '绿', 0, 0, 0, 0, 0);
+/*!40000 ALTER TABLE `font_format` ENABLE KEYS */;
+UNLOCK TABLES;
+/*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
+
+/*!40101 SET SQL_MODE=@OLD_SQL_MODE */;
+/*!40014 SET FOREIGN_KEY_CHECKS=@OLD_FOREIGN_KEY_CHECKS */;
+/*!40014 SET UNIQUE_CHECKS=@OLD_UNIQUE_CHECKS */;
+/*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
+/*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;
+/*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
+/*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
+
+-- Dump completed on 2019-01-13 13:43:57
