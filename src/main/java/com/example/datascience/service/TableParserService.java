@@ -1,8 +1,8 @@
 package com.example.datascience.service;
 
-import com.example.datascience.pojo.table.TableInfo;
+import com.example.datascience.pojo.vo.TableInfo;
+import org.apache.poi.xwpf.usermodel.XWPFDocument;
 
-import java.io.FileInputStream;
 import java.util.List;
 
 /**
@@ -26,9 +26,9 @@ public interface TableParserService {
 
     /**
      * parse tables of a file
-     * @param fileInputStream input stream
-     * @param id start id
-     * @return next id
+     * @param xwpfDocument tables
+     * @param token token
      */
-    public int parseAllTables(FileInputStream fileInputStream,int id);
+    public void parseAllTables(XWPFDocument xwpfDocument,String token);
+
 }

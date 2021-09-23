@@ -156,16 +156,18 @@ DROP TABLE IF EXISTS `table_info`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!40101 SET character_set_client = utf8 */;
 CREATE TABLE `table_info` (
-    `id` int(11) NOT NULL AUTO_INCREMENT,
+    `id` int(11) NOT NULL,
     `word_token` varchar(255) NOT NULL,
     `paragraph_id_before` int(11),
     `paragraph_id_after` int(11),
+    `text_before` text,
+    `text_after` text,
+    `table_content` text,
     PRIMARY KEY (`id`, `word_token`),
     FOREIGN KEY (`word_token`) references word(`token`),
     FOREIGN KEY (`paragraph_id_before`) references paragraph(`id`),
     FOREIGN KEY (`paragraph_id_after`) references paragraph(`id`)
 )   ENGINE=MyISAM
-    AUTO_INCREMENT = 2
     DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
@@ -175,7 +177,7 @@ CREATE TABLE `table_info` (
 
 LOCK TABLES `table_info` WRITE;
 /*!40000 ALTER TABLE `table_info` DISABLE KEYS */;
-INSERT INTO `table_info` VALUES (1, '样例', 1, 2);
+INSERT INTO `table_info` VALUES (1, '样例', 1, 2,'样例','yangli','11');
 /*!40000 ALTER TABLE `table_info` ENABLE KEYS */;
 UNLOCK TABLES;
 /*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
@@ -198,12 +200,13 @@ DROP TABLE IF EXISTS `table_content`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!40101 SET character_set_client = utf8 */;
 CREATE TABLE `table_content` (
+    `id` int(11) NOT NULL,
     `table_id` int(11) NOT NULL,
     `word_token` varchar(255) NOT NULL,
-    `row` int(11) NOT NULL,
-    `col` int(11) NOT NULL,
-    `text` varchar(225),
-    PRIMARY KEY (`table_id`, `word_token`, `row`, `col`),
+    `row_num` int(11) NOT NULL,
+    `col_num` int(11) NOT NULL,
+    `text` text,
+    PRIMARY KEY (`id`,`table_id`, `word_token`),
     FOREIGN KEY (`word_token`) references word(`token`),
     FOREIGN KEY (`table_id`) references table_info(`id`)
 )   ENGINE=MyISAM
@@ -216,7 +219,7 @@ CREATE TABLE `table_content` (
 
 LOCK TABLES `table_content` WRITE;
 /*!40000 ALTER TABLE `table_content` DISABLE KEYS */;
-INSERT INTO `table_content` VALUES (1, '样例', 1, 1, '样例');
+INSERT INTO `table_content` VALUES (1, 1,'样例', 1, 1, '样例');
 /*!40000 ALTER TABLE `table_content` ENABLE KEYS */;
 UNLOCK TABLES;
 /*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;

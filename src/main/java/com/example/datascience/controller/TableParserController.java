@@ -1,7 +1,7 @@
 package com.example.datascience.controller;
 
 import com.example.datascience.pojo.Response;
-import com.example.datascience.pojo.table.TableInfo;
+import com.example.datascience.pojo.vo.TableInfo;
 import com.example.datascience.service.PicParserService;
 import com.example.datascience.service.TableParserService;
 import org.springframework.beans.factory.annotation.Autowired;

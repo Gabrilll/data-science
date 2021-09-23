@@ -1,7 +1,7 @@
 package com.example.datascience.controller;
 
 import com.example.datascience.pojo.Response;
-import com.example.datascience.pojo.pic.PicInfo;
+import com.example.datascience.pojo.vo.PicInfo;
 import com.example.datascience.service.PicParserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;

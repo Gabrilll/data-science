@@ -1,8 +1,11 @@
 package com.example.datascience.pojo;
 
+import lombok.Data;
+
 /**
  * @author Gabri
  */
+@Data
 public class Response<T> {
     private String code;
     private String msg;

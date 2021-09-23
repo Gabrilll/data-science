@@ -1,6 +1,7 @@
 package com.example.datascience.service;
 
-import com.example.datascience.pojo.pic.PicInfo;
+import com.example.datascience.pojo.vo.PicInfo;
+import org.apache.poi.xwpf.usermodel.XWPFDocument;
 
 import java.util.List;
 

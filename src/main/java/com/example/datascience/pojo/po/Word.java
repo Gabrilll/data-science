@@ -1,11 +1,13 @@
 package com.example.datascience.pojo.po;
 
 import javax.persistence.*;
+import java.io.Serializable;
 
 @Entity
-public class Word {
+public class Word implements Serializable {
     @Id
     private String token;
+
     @Column(name = "text")
     private String text;
 
