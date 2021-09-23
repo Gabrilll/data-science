@@ -27,13 +27,13 @@ public class TableParserController {
     }
 
 
-    @GetMapping(value = "{token}/all_tables")
+    @GetMapping(value = "/{token}/all_tables")
     public Response<List<TableInfo>> getAllTables(@PathVariable String token) {
         List<TableInfo> tableInfos = tableParserService.getAllTables(token);
         return new Response<>(tableInfos);
     }
 
-    @GetMapping(value = "{token}/title/{paragraph_id}/all_tables")
+    @GetMapping(value = "/{token}/title/{paragraph_id}/all_tables")
     public Response<List<TableInfo>> getAllTables(@PathVariable String token, @PathVariable Integer paragraph_id) {
         List<TableInfo> tableInfos = tableParserService.getAllTables(token, paragraph_id);
         return new Response<>(tableInfos);

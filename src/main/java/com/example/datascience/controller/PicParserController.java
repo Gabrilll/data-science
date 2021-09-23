@@ -24,14 +24,14 @@ public class PicParserController {
         this.picParserService = picParserService;
     }
 
-    @GetMapping(value = "{token}/all_pics")
+    @GetMapping(value = "/{token}/all_pics")
     public Response<List<PicInfo>> getAllPics(@PathVariable String token) {
         List<PicInfo> picInfos = picParserService.getAllPics(token);
         return new Response<>(picInfos);
 
     }
 
-    @GetMapping(value = "{token}/title/{paragraph_id}/all_pics")
+    @GetMapping(value = "/{token}/title/{paragraph_id}/all_pics")
     public Response<List<PicInfo>> getAllPics(@PathVariable String token, @PathVariable Integer paragraph_id) {
         List<PicInfo> picInfos = picParserService.getAllPics(token, paragraph_id);
         return new Response<>(picInfos);

@@ -33,6 +33,7 @@ CREATE TABLE `word` (
 LOCK TABLES `word` WRITE;
 /*!40000 ALTER TABLE `word` DISABLE KEYS */;
 INSERT INTO `word` VALUES ('样例', '文章');
+INSERT INTO `word` VALUES ('sample', 'content text');
 /*!40000 ALTER TABLE `word` ENABLE KEYS */;
 UNLOCK TABLES;
 /*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
@@ -82,7 +83,8 @@ CREATE TABLE `paragraph` (
 LOCK TABLES `paragraph` WRITE;
 /*!40000 ALTER TABLE `paragraph` DISABLE KEYS */;
 INSERT INTO `paragraph` VALUES (1, '样例', '文章', 1, 1, 0, 0, 1),
-                               (2, '样例', '文章', 1, 1, 0, 0, 1);
+                               (2, '样例', '文章', 1, 1, 0, 0, 1),
+                               (3, 'sample', 'paragraph for sample', 1, 1, 0, 0, 1);
 /*!40000 ALTER TABLE `paragraph` ENABLE KEYS */;
 UNLOCK TABLES;
 /*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
@@ -130,7 +132,8 @@ CREATE TABLE `image` (
 
 LOCK TABLES `image` WRITE;
 /*!40000 ALTER TABLE `image` DISABLE KEYS */;
-INSERT INTO `image` VALUES (1, '样例', 1, 2, '样例1', null, 0, 0, null);
+INSERT INTO `image` VALUES (1, '样例', 1, 2, '样例1', null, 0, 0, null),
+                           (2, 'sample', 1, 2, 'sample2', null, 0, 0, null);
 /*!40000 ALTER TABLE `image` ENABLE KEYS */;
 UNLOCK TABLES;
 /*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
