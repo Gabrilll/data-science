@@ -1,7 +1,7 @@
 package com.example.datascience.controller;
 
 import com.example.datascience.pojo.Response;
-import com.example.datascience.pojo.pic.PicInfo;
+import com.example.datascience.pojo.vo.PicInfo;
 import com.example.datascience.service.PicParserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -24,14 +24,14 @@ public class PicParserController {
         this.picParserService = picParserService;
     }
 
-    @GetMapping(value = "{token}/all_pics")
+    @GetMapping(value = "/{token}/all_pics")
     public Response<List<PicInfo>> getAllPics(@PathVariable String token) {
         List<PicInfo> picInfos = picParserService.getAllPics(token);
         return new Response<>(picInfos);
 
     }
 
-    @GetMapping(value = "{token}/title/{paragraph_id}/all_pics")
+    @GetMapping(value = "/{token}/title/{paragraph_id}/all_pics")
     public Response<List<PicInfo>> getAllPics(@PathVariable String token, @PathVariable Integer paragraph_id) {
         List<PicInfo> picInfos = picParserService.getAllPics(token, paragraph_id);
         return new Response<>(picInfos);

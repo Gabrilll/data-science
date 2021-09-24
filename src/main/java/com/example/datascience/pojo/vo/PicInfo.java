@@ -1,4 +1,4 @@
-package com.example.datascience.pojo.pic;
+package com.example.datascience.pojo.vo;
 
 /**
  * @author Gabri
