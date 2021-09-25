@@ -5,7 +5,9 @@ import com.example.datascience.dao.table.TableRepository;
 import com.example.datascience.pojo.po.table.Table;
 import com.example.datascience.pojo.po.table.TableContent;
 import com.example.datascience.pojo.vo.TableInfo;
+import com.example.datascience.service.ParaParserService;
 import com.example.datascience.service.TableParserService;
+import com.example.datascience.service.TitleService;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.poi.xwpf.usermodel.*;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -22,22 +24,26 @@ import java.util.List;
 public class TableParserServiceImpl implements TableParserService {
     private final TableRepository tableRepository;
     private final TableContentRepository tableContentRepository;
+    private final ParaParserService paraParserService;
+    private final TitleService titleService;
 
     @Autowired
-    TableParserServiceImpl(TableRepository tableRepository, TableContentRepository tableContentRepository) {
+    TableParserServiceImpl(TableRepository tableRepository, TableContentRepository tableContentRepository, ParaParserServiceImpl paraParserService, TitleServiceImpl titleService) {
         this.tableRepository = tableRepository;
         this.tableContentRepository = tableContentRepository;
+        this.paraParserService = paraParserService;
+        this.titleService = titleService;
     }
 
     @Override
     public List<TableInfo> getAllTables(String token) {
-        ArrayList<TableInfo> tableInfos=new ArrayList<>();
-        List<Table> tables=tableRepository.findTablesByToken(token);
-        for(Table table:tables){
-            TableInfo tableInfo=new TableInfo(table);
-            List<TableContent> tableContents=tableContentRepository.findTableContentsByTokenAndTableId(token,table.getId());
-            for(TableContent tableContent:tableContents){
-                tableInfo.addCell(tableContent.getText(),tableContent.getId());
+        ArrayList<TableInfo> tableInfos = new ArrayList<>();
+        List<Table> tables = tableRepository.findTablesByToken(token);
+        for (Table table : tables) {
+            TableInfo tableInfo = new TableInfo(table);
+            List<TableContent> tableContents = tableContentRepository.findTableContentsByTokenAndTableId(token, table.getId());
+            for (TableContent tableContent : tableContents) {
+                tableInfo.addCell(tableContent.getText(), tableContent.getId());
             }
             tableInfos.add(tableInfo);
 
@@ -47,7 +53,20 @@ public class TableParserServiceImpl implements TableParserService {
 
     @Override
     public List<TableInfo> getAllTables(String token, int paragraphId) {
-        return null;
+        ArrayList<TableInfo> tableInfos = new ArrayList<>();
+        Integer endParaId = titleService.getEndParagraphId(paragraphId);
+        List<Table> tables = tableRepository.findTablesByTokenAndIdBetween(token, paragraphId, endParaId);
+        for (Table table : tables) {
+            TableInfo tableInfo = new TableInfo(table);
+            List<TableContent> tableContents = tableContentRepository.findTableContentsByTokenAndTableId(token, table.getId());
+            for (TableContent tableContent : tableContents) {
+                tableInfo.addCell(tableContent.getText(), tableContent.getId());
+            }
+            tableInfos.add(tableInfo);
+
+        }
+        return tableInfos;
+
     }
 
     @Override
@@ -79,16 +98,26 @@ public class TableParserServiceImpl implements TableParserService {
 
             int row = 0;
             int col = 0;
+            int cellNum = 0;
+            int rowTotal = xwpfTable.getRows().size();
+            int colTotal = 0;
 
             for (XWPFTableRow xwpfTableRow : xwpfTable.getRows()) {
                 for (XWPFTableCell xwpfTableCell : xwpfTableRow.getTableCells()) {
+                    if (colTotal == 0) {
+                        colTotal = xwpfTableRow.getTableCells().size();
+                    }
+                    cellNum++;
                     TableContent tableContent = new TableContent(id++, pos, token, row, col, xwpfTableCell.getText());
                     tableContentRepository.save(tableContent);
-                    //TODO
-                    //paragraphService.parseParagraphs(xwpfTableCell.getParagraphs());
+                    boolean isTableEnd = (cellNum == rowTotal * colTotal);
+                    for (XWPFParagraph paragraph : xwpfTableCell.getParagraphs()) {
+                        paraParserService.tableParaParser(xwpfDocument, paragraph, id++, tableContent.getTableId(), token, isTableEnd);
+                    }
                     col++;
                 }
                 row++;
+                col = 0;
             }
         }
     }

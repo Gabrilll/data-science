@@ -15,6 +15,23 @@ import java.util.List;
 @Repository
 public interface TableRepository extends JpaRepository<Table, TableKey> {
 
+    /**
+     * find all tables
+     *
+     * @param token token
+     * @return tables
+     */
     @Query("select t from table_info t where t.token=:token")
     List<Table> findTablesByToken(@Param("token") String token);
+
+    /**
+     * find tables between paras
+     *
+     * @param token   token
+     * @param startId start para id
+     * @param endId   end para id
+     * @return tables
+     */
+    @Query("select t from table_info t where t.token=:token and t.id>=:startId and t.id<:endId")
+    List<Table> findTablesByTokenAndIdBetween(@Param("token") String token, @Param("startId") Integer startId, @Param("endId") Integer endId);
 }
