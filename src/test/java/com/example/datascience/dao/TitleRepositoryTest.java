@@ -1,5 +1,6 @@
 package com.example.datascience.dao;
 
+import com.example.datascience.dao.title.TitleRepository;
 import com.example.datascience.pojo.po.title.Title;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;

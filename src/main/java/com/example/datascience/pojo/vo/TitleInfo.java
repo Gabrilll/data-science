@@ -1,5 +1,6 @@
 package com.example.datascience.pojo.vo;
 
+import com.example.datascience.pojo.po.title.Title;
 import io.swagger.annotations.ApiModel;
 
 @ApiModel("标题详细信息")
@@ -13,6 +14,10 @@ public class TitleInfo {
     private Integer lvl;
 
     public TitleInfo() {
+    }
+
+    public TitleInfo(Title title) {
+        this.paragraphId = title.getId();
     }
 
     public TitleInfo(String paragraphText, Integer paragraphId, Integer lineSpacing, Integer indentFromLeft, Integer indentFromRight, Integer firstLineIndent, Integer lvl) {
