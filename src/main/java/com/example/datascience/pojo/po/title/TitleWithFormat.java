@@ -22,11 +22,11 @@ public class TitleWithFormat {
     @Column(name = "text")
     private String text;
 
-    @OneToOne(fetch = FetchType.EAGER, optional = false)
-    @NotFound(action = NotFoundAction.IGNORE)
-    @JoinColumnsOrFormulas({
-            @JoinColumnOrFormula(column = @JoinColumn(name = "id", referencedColumnName = "id", insertable = false, updatable = false)),
-            @JoinColumnOrFormula(column = @JoinColumn(name = "word_token", referencedColumnName = "token", insertable = false, updatable = false)),
-    })
-    private ParagraphFormat paragraphFormat;
+//    @OneToOne(fetch = FetchType.EAGER, optional = false)
+//    @NotFound(action = NotFoundAction.IGNORE)
+//    @JoinColumnsOrFormulas({
+//            @JoinColumnOrFormula(column = @JoinColumn(name = "id", referencedColumnName = "id", insertable = false, updatable = false)),
+//            @JoinColumnOrFormula(column = @JoinColumn(name = "word_token", referencedColumnName = "token", insertable = false, updatable = false)),
+//    })
+//    private ParagraphFormat paragraphFormat;
 }

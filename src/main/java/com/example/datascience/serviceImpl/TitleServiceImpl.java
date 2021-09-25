@@ -32,7 +32,7 @@ public class TitleServiceImpl implements TitleService {
     public List<TitleInfo> getTitles(String token) {
         List<TitleInfo> titleInfoList = new ArrayList<>();
 
-        List<TitleWithFormat> list = titleWithFormatRepository.findAllByToken(token);
+        List<TitleWithFormat> list = titleWithFormatRepository.findAllByWordToken(token);
 
         LogUtils.printList("[getTitles] list <<<<<<<<<<", list);
 
