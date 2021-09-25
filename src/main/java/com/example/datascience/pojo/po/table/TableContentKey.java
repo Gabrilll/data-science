@@ -2,7 +2,6 @@ package com.example.datascience.pojo.po.table;
 
 import lombok.Data;
 
-import javax.persistence.Id;
 import java.io.Serializable;
 
 /**
@@ -13,7 +12,7 @@ public class TableContentKey implements Serializable {
 
     private Integer id;
 
-    private Integer table_id;
+    private Integer tableId;
 
-    private String word_token;
+    private String token;
 }

@@ -1,5 +1,6 @@
 package com.example.datascience.serviceImpl;
 
+import com.example.datascience.pojo.vo.TableInfo;
 import com.example.datascience.service.TableParserService;
 import org.apache.poi.xwpf.usermodel.XWPFDocument;
 import org.junit.jupiter.api.Test;
@@ -9,14 +10,21 @@ import org.springframework.boot.test.context.SpringBootTest;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.IOException;
+import java.util.List;
 
 @SpringBootTest
-public class TableServiceImplTest {
+public class TableParseServiceImplTest {
     private TableParserService tableParserService;
 
     @Autowired
-    TableServiceImplTest(TableParserServiceImpl tableParserService) {
+    TableParseServiceImplTest(TableParserServiceImpl tableParserService) {
         this.tableParserService = tableParserService;
+    }
+
+    @Test
+    public void testGetAllTables(){
+        String token="样例";
+        List<TableInfo> tableInfos=tableParserService.getAllTables(token);
     }
 
     @Test

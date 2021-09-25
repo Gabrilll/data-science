@@ -11,6 +11,7 @@ import org.apache.poi.xwpf.usermodel.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -30,7 +31,18 @@ public class TableParserServiceImpl implements TableParserService {
 
     @Override
     public List<TableInfo> getAllTables(String token) {
-        return null;
+        ArrayList<TableInfo> tableInfos=new ArrayList<>();
+        List<Table> tables=tableRepository.findTablesByToken(token);
+        for(Table table:tables){
+            TableInfo tableInfo=new TableInfo(table);
+            List<TableContent> tableContents=tableContentRepository.findTableContentsByTokenAndTableId(token,table.getId());
+            for(TableContent tableContent:tableContents){
+                tableInfo.addCell(tableContent.getText(),tableContent.getId());
+            }
+            tableInfos.add(tableInfo);
+
+        }
+        return tableInfos;
     }
 
     @Override

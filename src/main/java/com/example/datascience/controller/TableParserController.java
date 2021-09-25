@@ -27,7 +27,7 @@ public class TableParserController {
     }
 
 
-    @GetMapping(value = "/{token}/all_tables")
+    @GetMapping(value = "{token}/all_tables")
     public Response<List<TableInfo>> getAllTables(@PathVariable String token) {
         List<TableInfo> tableInfos = tableParserService.getAllTables(token);
         return new Response<>(tableInfos);
