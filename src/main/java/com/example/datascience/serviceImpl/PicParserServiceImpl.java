@@ -24,7 +24,7 @@ import java.util.List;
 @Service
 @Slf4j
 public class PicParserServiceImpl implements PicParserService {
-    private PicRepository picRepository;
+    private final PicRepository picRepository;
 
     @Autowired
     PicParserServiceImpl(PicRepository picRepository) {

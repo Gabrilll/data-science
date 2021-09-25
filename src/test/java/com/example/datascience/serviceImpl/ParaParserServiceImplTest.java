@@ -11,7 +11,6 @@ import org.springframework.boot.test.context.SpringBootTest;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.IOException;
-import java.util.ArrayList;
 import java.util.List;
 
 @SpringBootTest
@@ -29,7 +28,7 @@ class ParaParserServiceImplTest {
         File file = new File("C:/Users/Ray/Desktop/test.docx");
         FileInputStream fileInputStream = new FileInputStream(file);
 //        XWPFDocument document=new XWPFDocument(fileInputStream);
-        paraParserService.ParasParserInDocx(fileInputStream, "12345");
+        paraParserService.parasParserInDocx(fileInputStream, "12345");
     }
 
     @Test

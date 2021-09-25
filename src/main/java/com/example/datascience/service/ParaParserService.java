@@ -29,7 +29,7 @@ public interface ParaParserService {
      * @param fileInputStream input
      * @return all para info
      */
-    void ParasParserInDocx(FileInputStream fileInputStream, String token);
+    void parasParserInDocx(FileInputStream fileInputStream, String token);
 
     /**
      * get targeted paragraph
