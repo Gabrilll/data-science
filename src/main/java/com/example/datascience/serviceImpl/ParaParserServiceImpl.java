@@ -64,11 +64,17 @@ public class ParaParserServiceImpl implements ParaParserService {
             ParaDocLen paraLen = new ParaDocLen();
             paraLen.setLen(len);
             paraLen.setToken(token);
+            int lastPos = 0;
             for (XWPFParagraph para: paras) {
-                String style = para.getStyle();
-                if ("1".equals(style) || "2".equals(style) || "3".equals(style)) {
+                String titleLvl = getTitleLvl(document, para);//获取段落级别
+                if("a5".equals(titleLvl)||"HTML".equals(titleLvl)||"".equals(titleLvl)||null==titleLvl){
+                    titleLvl = "";
+                }
+                if(!"".equals(titleLvl)){
                     Title title = new Title();
                     title.setId(pos);
+                    title.setParagraph_end(lastPos);
+                    lastPos = pos;
                     title.setWordToken(token);
                     title.setText(para.getText());
                     titleRepository.save(title);
