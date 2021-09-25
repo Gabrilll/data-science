@@ -6,6 +6,7 @@ import com.example.datascience.pojo.vo.WordInfo;
 import com.example.datascience.service.WordService;
 import io.swagger.annotations.ApiOperation;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
@@ -26,14 +27,30 @@ public class WordController {
             return Response.error("上传文件为空");
         }
 
+        Response<WordInfo> response;
+
         // 2.
         try {
             byte[] bytes = file.getBytes();
-            return wordService.loadFile(fileName, bytes);
+            response = wordService.loadFile(fileName, bytes);
+            if (response.getData().getToken() == null) {
+                return Response.error("getToken fail");
+            }
         } catch (IOException e) {
             e.printStackTrace();
             return Response.error(e.getMessage());
         }
+
+        String token = response.getData().getToken();
+
+        try {
+            response = wordService.parseFile(token, file.getInputStream());
+            return response;
+        } catch (IOException e) {
+            e.printStackTrace();
+            return Response.error(e.getMessage());
+        }
+
 //        try {
 //            BufferedOutputStream outputStream = new BufferedOutputStream(new FileOutputStream(new File(file.getOriginalFilename())));
 //        } catch (FileNotFoundException e) {

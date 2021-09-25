@@ -4,6 +4,7 @@ import com.example.datascience.pojo.vo.FontInfo;
 import com.example.datascience.pojo.vo.ParaFormatInfo;
 import com.example.datascience.pojo.vo.ParaInfo;
 import com.example.datascience.service.ParaParserService;
+import org.apache.poi.xwpf.usermodel.XWPFDocument;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
@@ -26,10 +27,10 @@ class ParaParserServiceImplTest {
 
     @Test
     public void testParasParserInDocx() throws IOException {
-        File file = new File("C:/Users/Ray/Desktop/test.docx");
+        File file = new File("/Users/superfree/Desktop/专业课/数据科学应用实践/test/test3.docx");
         FileInputStream fileInputStream = new FileInputStream(file);
 //        XWPFDocument document=new XWPFDocument(fileInputStream);
-        paraParserService.ParasParserInDocx(fileInputStream, "12345");
+        paraParserService.ParasParserInDocx(new XWPFDocument(fileInputStream), "12345");
     }
 
     @Test

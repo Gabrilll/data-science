@@ -29,11 +29,12 @@ public interface ParaParserService {
      * @param fileInputStream input
      * @return all para info
      */
-    void ParasParserInDocx(FileInputStream fileInputStream, String token);
+    void ParasParserInDocx(XWPFDocument document, String token);
 
     /**
      * get targeted paragraph
-     * @param token token
+     *
+     * @param token       token
      * @param paragraphId paragraph id
      * @return para info
      */

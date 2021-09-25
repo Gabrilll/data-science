@@ -55,9 +55,8 @@ public class ParaParserServiceImpl implements ParaParserService {
     }
 
     @Override
-    public void ParasParserInDocx(FileInputStream fileInputStream, String token) {
+    public void ParasParserInDocx(XWPFDocument document, String token) {
         try{
-            XWPFDocument document=new XWPFDocument(fileInputStream);
             List<XWPFParagraph> paras = document.getParagraphs(); //将得到包含段落列表
             int len = paras.size();
             int pos = 1;

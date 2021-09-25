@@ -4,16 +4,29 @@ import com.example.datascience.dao.WordRepository;
 import com.example.datascience.pojo.Response;
 import com.example.datascience.pojo.po.Word;
 import com.example.datascience.pojo.vo.WordInfo;
+import com.example.datascience.service.ParaParserService;
+import com.example.datascience.service.PicParserService;
+import com.example.datascience.service.TableParserService;
 import com.example.datascience.service.WordService;
 import com.example.datascience.utils.SHA256Utils;
 import lombok.extern.slf4j.Slf4j;
+import org.apache.poi.xwpf.usermodel.XWPFDocument;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+
+import java.io.IOException;
+import java.io.InputStream;
 
 @Service
 @Slf4j
 public class WordServiceImpl implements WordService {
 
+    @Autowired
+    private ParaParserService paraParserService;
+    @Autowired
+    private PicParserService picParserService;
+    @Autowired
+    private TableParserService tableParserService;
     @Autowired
     private WordRepository wordRepository;
 
@@ -34,7 +47,25 @@ public class WordServiceImpl implements WordService {
             wordRepository.save(word);
             return Response.success(new WordInfo(token));
         } catch (Exception e) {
-            return Response.error();
+            e.printStackTrace();
+            return Response.error(e.getMessage());
         }
+    }
+
+    @Override
+    public Response<WordInfo> parseFile(String token, InputStream inputStream) {
+        System.out.println("do parse here");
+
+        XWPFDocument document;
+        try {
+            document = new XWPFDocument(inputStream);
+            paraParserService.ParasParserInDocx(document, token);
+            tableParserService.parseAllTables(document, token);
+            picParserService.parseAllPics(document, token);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+
+        return Response.success(new WordInfo(token));
     }
 }
