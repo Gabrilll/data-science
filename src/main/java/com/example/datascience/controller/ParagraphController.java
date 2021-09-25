@@ -26,6 +26,7 @@ public class ParagraphController {
             List<ParagraphInfo> data = paragraphService.getAllParagraphs(token, paragraphId);
             return Response.success(data);
         } catch(Exception e) {
+            e.printStackTrace();
             return Response.error(e.getMessage());
         }
     }

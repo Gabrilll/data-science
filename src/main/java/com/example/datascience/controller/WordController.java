@@ -32,20 +32,19 @@ public class WordController {
             return wordService.loadFile(fileName, bytes);
         } catch (IOException e) {
             e.printStackTrace();
+            return Response.error(e.getMessage());
         }
-        try {
-            BufferedOutputStream outputStream = new BufferedOutputStream(new FileOutputStream(new File(file.getOriginalFilename())));
-        } catch (FileNotFoundException e) {
-            e.printStackTrace();
-        }
-        System.out.println();
-        return new Response<>(new WordInfo("测试哈"));
+//        try {
+//            BufferedOutputStream outputStream = new BufferedOutputStream(new FileOutputStream(new File(file.getOriginalFilename())));
+//        } catch (FileNotFoundException e) {
+//            e.printStackTrace();
+//        }
     }
 
     @ApiOperation("12.删除文档(释放资源)")
     @DeleteMapping("/word_parser/{token}")
     public Response<CommonInfo> deleteWord(@PathVariable String token) {
 //        TODO: 实现
-        return new Response<>(new CommonInfo(true));
+        return Response.success(new CommonInfo(true));
     }
 }

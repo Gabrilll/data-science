@@ -6,7 +6,7 @@ import javax.persistence.*;
 
 @Entity(name =  "title")
 @Data
-@IdClass(titleKey.class)
+@IdClass(TitleKey.class)
 public class Title {
     @Id
     private Integer id;
