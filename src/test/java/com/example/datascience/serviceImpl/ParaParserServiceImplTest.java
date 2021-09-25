@@ -24,7 +24,6 @@ class ParaParserServiceImplTest {
         this.paraParserService = paraParserService;
     }
 
-
     @Test
     public void testParasParserInDocx() throws IOException {
         File file = new File("/Users/superfree/Desktop/专业课/数据科学应用实践/test/test3.docx");

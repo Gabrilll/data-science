@@ -21,7 +21,9 @@ DROP TABLE IF EXISTS `word`;
 /*!40101 SET character_set_client = utf8 */;
 CREATE TABLE `word` (
   `token` varchar(255) NOT NULL,
-  `text` text,
+  `name` varchar(255) NOT NULL,
+  `origin_ext` varchar(255) NOT NULL,
+  `text` mediumblob,
   PRIMARY KEY (`token`)
 ) ENGINE=MyISAM DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
@@ -32,7 +34,7 @@ CREATE TABLE `word` (
 
 LOCK TABLES `word` WRITE;
 /*!40000 ALTER TABLE `word` DISABLE KEYS */;
-INSERT INTO `word` VALUES ('样例', '文章');
+INSERT INTO `word` VALUES ('样例', '样例文件', '.docx', '文章');
 /*!40000 ALTER TABLE `word` ENABLE KEYS */;
 UNLOCK TABLES;
 /*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
