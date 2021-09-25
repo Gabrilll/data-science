@@ -6,4 +6,6 @@ import java.util.List;
 
 public interface TitleService {
     List<TitleInfo> getTitles(String token);
+
+    public Integer getEndParagraphId(Integer id);
 }

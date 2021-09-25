@@ -14,6 +14,13 @@ import java.util.List;
  */
 @Repository
 public interface TableContentRepository extends JpaRepository<TableContent, TableContentKey> {
+    /**
+     * find table cells of a table
+     *
+     * @param token   token
+     * @param tableId table id
+     * @return table cells
+     */
     @Query("select t from table_content t where t.token=:token and t.tableId=:tableId")
     public List<TableContent> findTableContentsByTokenAndTableId(@Param("token") String token, @Param("tableId") Integer tableId);
 

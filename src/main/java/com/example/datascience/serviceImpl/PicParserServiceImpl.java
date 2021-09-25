@@ -4,6 +4,7 @@ import com.example.datascience.dao.PicRepository;
 import com.example.datascience.pojo.po.picture.Picture;
 import com.example.datascience.pojo.vo.PicInfo;
 import com.example.datascience.service.PicParserService;
+import com.example.datascience.service.TitleService;
 import com.example.datascience.utils.XWPFUtils;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.poi.xwpf.usermodel.XWPFDocument;
@@ -25,10 +26,12 @@ import java.util.List;
 @Slf4j
 public class PicParserServiceImpl implements PicParserService {
     private final PicRepository picRepository;
+    private final TitleService titleService;
 
     @Autowired
-    PicParserServiceImpl(PicRepository picRepository) {
+    PicParserServiceImpl(PicRepository picRepository, TitleServiceImpl titleService) {
         this.picRepository = picRepository;
+        this.titleService = titleService;
     }
 
     @Override
@@ -43,7 +46,13 @@ public class PicParserServiceImpl implements PicParserService {
 
     @Override
     public List<PicInfo> getAllPics(String token, int paragraphId) {
-        return null;
+        Integer endParaId = titleService.getEndParagraphId(paragraphId);
+        ArrayList<PicInfo> picInfos = new ArrayList<>();
+        List<Picture> pictures = picRepository.findPicturesByTokenAndIdBetween(token, paragraphId, endParaId);
+        for (Picture picture : pictures) {
+            picInfos.add(new PicInfo(picture));
+        }
+        return picInfos;
     }
 
     @Override
