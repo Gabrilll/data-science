@@ -50,6 +50,6 @@ class ParaParserServiceImplTest {
 
     @Test
     void getFontFormat() {
-        List<FontInfo> fontInfo = paraParserService.getFontFormat("样例", 1);
+        List<FontInfo> fontInfo = paraParserService.getFontFormat("12345", 1);
     }
 }

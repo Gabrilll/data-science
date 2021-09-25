@@ -185,7 +185,7 @@ public class ParaParserServiceImpl implements ParaParserService {
             font_format.setToken(token);
             font_format.setColor(run.getColor());
             font_format.setFontSize(run.getFontSizeAsDouble());
-            font_format.setFontName(run.getFontName());
+            font_format.setFontName(run.getFontName()==null? "黑色" : run.getFontName());
             font_format.setBold(run.isBold());
             font_format.setItalic(run.isItalic());
             font_format.setFontAlignment(run.getKerning());
