@@ -1,12 +1,17 @@
-package com.example.datascience.pojo.po;
+package com.example.datascience.pojo.po.paragraph;
+
+import lombok.Data;
 
 import javax.persistence.*;
 
-@Entity
+@Entity(name = "paragraph_format")
+@Data
+@IdClass(ParagraphFormatKey.class)
 public class ParagraphFormat {
     @Id
-    @GeneratedValue
     private Integer id;
+    @Id
+    private String token;
     @Column(name = "indent_from_left")
     private Integer indentFromLeft;
     @Column(name = "indent_from_right")
@@ -14,7 +19,7 @@ public class ParagraphFormat {
     @Column(name = "first_line_indent")
     private Integer firstLineIndent;
     @Column(name = "lvl")
-    private Integer lvl;
+    private String lvl;
 
     public Integer getId() {
         return id;
@@ -22,6 +27,14 @@ public class ParagraphFormat {
 
     public void setId(Integer id) {
         this.id = id;
+    }
+
+    public String getToken() {
+        return token;
+    }
+
+    public void setToken(String token) {
+        this.token = token;
     }
 
     public Integer getIndentFromLeft() {
@@ -48,11 +61,11 @@ public class ParagraphFormat {
         this.firstLineIndent = firstLineIndent;
     }
 
-    public Integer getLvl() {
+    public String getLvl() {
         return lvl;
     }
 
-    public void setLvl(Integer lvl) {
+    public void setLvl(String lvl) {
         this.lvl = lvl;
     }
 }

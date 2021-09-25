@@ -21,7 +21,7 @@ public class TableServiceImplTest {
 
     @Test
     public void testParseAllTables() throws IOException {
-        File file = new File("C:/Users/Gabri/Desktop/test.docx");
+        File file = new File("C:/Users/Ray/Desktop/test.docx");
         FileInputStream fileInputStream = new FileInputStream(file);
         XWPFDocument document=new XWPFDocument(fileInputStream);
         tableParserService.parseAllTables(document,"样例");

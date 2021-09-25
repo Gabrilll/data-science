@@ -1,6 +1,6 @@
 package com.example.datascience.serviceImpl;
 
-import com.example.datascience.pojo.po.Picture;
+//import com.example.datascience.pojo.po.Picture;
 import com.example.datascience.pojo.vo.PicInfo;
 import com.example.datascience.service.PicParserService;
 import com.microsoft.schemas.vml.CTShape;

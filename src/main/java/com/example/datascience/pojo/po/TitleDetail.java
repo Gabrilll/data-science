@@ -1,5 +1,8 @@
 package com.example.datascience.pojo.po;
 
+import com.example.datascience.pojo.po.paragraph.ParagraphFormat;
+import com.example.datascience.pojo.po.title.Title;
+
 /**
  * TitleDetail = Title + ParagraphFormat
  */
@@ -10,7 +13,7 @@ public class TitleDetail {
     private Integer indentFromLeft;
     private Integer indentFromRight;
     private Integer firstLineIndent;
-    private Integer lvl;
+    private String lvl;
 
     public TitleDetail() {
     }
@@ -73,11 +76,11 @@ public class TitleDetail {
         this.firstLineIndent = firstLineIndent;
     }
 
-    public Integer getLvl() {
+    public String getLvl() {
         return lvl;
     }
 
-    public void setLvl(Integer lvl) {
+    public void setLvl(String lvl) {
         this.lvl = lvl;
     }
 }

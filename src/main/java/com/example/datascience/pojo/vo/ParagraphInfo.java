@@ -6,14 +6,9 @@ import io.swagger.annotations.ApiModel;
 public class ParagraphInfo {
     private String paragraphText;
     private Integer paragraphId;
-    private Integer fontSize;
-    private String fontName;
-    private Boolean isBold;
-    private Boolean isItalic;
     private Boolean isInTable;
     private Integer lvl;
     private Integer lineSpacing;
-    private String fontAlignment;
     private Boolean isTableRowEnd;
     private Integer indentFromLeft;
     private Integer indentFromRight;
@@ -33,38 +28,6 @@ public class ParagraphInfo {
 
     public void setParagraphId(Integer paragraphId) {
         this.paragraphId = paragraphId;
-    }
-
-    public Integer getFontSize() {
-        return fontSize;
-    }
-
-    public void setFontSize(Integer fontSize) {
-        this.fontSize = fontSize;
-    }
-
-    public String getFontName() {
-        return fontName;
-    }
-
-    public void setFontName(String fontName) {
-        this.fontName = fontName;
-    }
-
-    public Boolean getBold() {
-        return isBold;
-    }
-
-    public void setBold(Boolean bold) {
-        isBold = bold;
-    }
-
-    public Boolean getItalic() {
-        return isItalic;
-    }
-
-    public void setItalic(Boolean italic) {
-        isItalic = italic;
     }
 
     public Boolean getInTable() {
@@ -89,14 +52,6 @@ public class ParagraphInfo {
 
     public void setLineSpacing(Integer lineSpacing) {
         this.lineSpacing = lineSpacing;
-    }
-
-    public String getFontAlignment() {
-        return fontAlignment;
-    }
-
-    public void setFontAlignment(String fontAlignment) {
-        this.fontAlignment = fontAlignment;
     }
 
     public Boolean getTableRowEnd() {

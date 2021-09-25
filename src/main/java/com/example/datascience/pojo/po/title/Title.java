@@ -1,18 +1,20 @@
-package com.example.datascience.pojo.po;
+package com.example.datascience.pojo.po.title;
+
+import lombok.Data;
 
 import javax.persistence.*;
 
-@Entity
+@Entity(name =  "title")
+@Data
+@IdClass(titleKey.class)
 public class Title {
     @Id
-    @GeneratedValue
     private Integer id;
+    @Id
     @Column(name = "word_token")
     private String wordToken;
     @Column(name = "text")
     private String text;
-    @Column(name = "paragraph_format_id")
-    private Integer paragraphFormatId;
 
     public Integer getId() {
         return id;
@@ -38,11 +40,4 @@ public class Title {
         this.text = text;
     }
 
-    public Integer getParagraphFormatId() {
-        return paragraphFormatId;
-    }
-
-    public void setParagraphFormatId(Integer paragraphFormatId) {
-        this.paragraphFormatId = paragraphFormatId;
-    }
 }

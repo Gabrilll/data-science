@@ -1,20 +1,20 @@
-package com.example.datascience.pojo.po;
+package com.example.datascience.pojo.po.paragraph;
+
+import lombok.Data;
 
 import javax.persistence.*;
 
 @Entity
+@Data
+@IdClass(ParagraphKey.class)
 public class Paragraph {
     @Id
-    @GeneratedValue
     private Integer id;
+    @Id
     @Column(name = "word_token")
     private String wordToken;
     @Column(name = "text")
     private String text;
-    @Column(name = "paragraph_format_id")
-    private Integer paragraphFormatId;
-    @Column(name = "font_format_id")
-    private Integer fontFormatId;
     @Column(name = "is_table_row_end")
     private Boolean isTableRowEnd;
     @Column(name = "is_in_table")
@@ -44,22 +44,6 @@ public class Paragraph {
 
     public void setText(String text) {
         this.text = text;
-    }
-
-    public Integer getParagraphFormatId() {
-        return paragraphFormatId;
-    }
-
-    public void setParagraphFormatId(Integer paragraphFormatId) {
-        this.paragraphFormatId = paragraphFormatId;
-    }
-
-    public Integer getFontFormatId() {
-        return fontFormatId;
-    }
-
-    public void setFontFormatId(Integer fontFormatId) {
-        this.fontFormatId = fontFormatId;
     }
 
     public Boolean getTableRowEnd() {

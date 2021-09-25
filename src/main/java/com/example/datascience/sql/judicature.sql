@@ -33,7 +33,6 @@ CREATE TABLE `word` (
 LOCK TABLES `word` WRITE;
 /*!40000 ALTER TABLE `word` DISABLE KEYS */;
 INSERT INTO `word` VALUES ('样例', '文章');
-INSERT INTO `word` VALUES ('sample', 'content text');
 /*!40000 ALTER TABLE `word` ENABLE KEYS */;
 UNLOCK TABLES;
 /*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
@@ -57,18 +56,14 @@ DROP TABLE IF EXISTS `paragraph`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!40101 SET character_set_client = utf8 */;
 CREATE TABLE `paragraph` (
-    `id` int(11) NOT NULL AUTO_INCREMENT,
+    `id` int(11) NOT NULL,
     `word_token` varchar(255) NOT NULL,
     `text` varchar(255) DEFAULT NULL,
-    `paragraph_format_id` int(11),
-    `font_format_id` int(11),
     `is_table_row_end` int(1) DEFAULT 0,
     `is_in_table` int(1) DEFAULT 0,
     `table_id` int(11),
     PRIMARY KEY (`id`, `word_token`),
     FOREIGN KEY (`word_token`) references word(`token`),
-    FOREIGN KEY (`paragraph_format_id`) references paragraph_format(`id`),
-    FOREIGN KEY (`font_format_id`) references font_format(`id`),
     FOREIGN KEY (`table_id`) references table_info(`id`)
 )   ENGINE=MyISAM
     AUTO_INCREMENT = 3
@@ -82,9 +77,8 @@ CREATE TABLE `paragraph` (
 
 LOCK TABLES `paragraph` WRITE;
 /*!40000 ALTER TABLE `paragraph` DISABLE KEYS */;
-INSERT INTO `paragraph` VALUES (1, '样例', '文章', 1, 1, 0, 0, 1),
-                               (2, '样例', '文章', 1, 1, 0, 0, 1),
-                               (3, 'sample', 'paragraph for sample', 1, 1, 0, 0, 1);
+INSERT INTO `paragraph` VALUES (1, '样例', '文章', 1, 0, 1),
+                               (2, '样例', '文章', 1, 0, 1);
 /*!40000 ALTER TABLE `paragraph` ENABLE KEYS */;
 UNLOCK TABLES;
 /*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
@@ -243,13 +237,11 @@ DROP TABLE IF EXISTS `title`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!40101 SET character_set_client = utf8 */;
 CREATE TABLE `title` (
-     `id` int(11) NOT NULL AUTO_INCREMENT,
+     `id` int(11) NOT NULL,
      `word_token` varchar(255) NOT NULL,
      `text` varchar(225),
-     `paragraph_format_id` int(11) NOT NULL,
      PRIMARY KEY (`id`, `word_token`),
-     FOREIGN KEY (`word_token`) references word(`token`),
-     FOREIGN KEY (`paragraph_format_id`) references paragraph_format(`id`)
+     FOREIGN KEY (`word_token`) references word(`token`)
 )   ENGINE=MyISAM
     AUTO_INCREMENT=2
     DEFAULT CHARSET=utf8;
@@ -261,7 +253,7 @@ CREATE TABLE `title` (
 
 LOCK TABLES `title` WRITE;
 /*!40000 ALTER TABLE `title` DISABLE KEYS */;
-INSERT INTO `title` VALUES (1, '样例', '样例', 1);
+INSERT INTO `title` VALUES (1, '样例', '样例');
 /*!40000 ALTER TABLE `title` ENABLE KEYS */;
 UNLOCK TABLES;
 /*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
@@ -285,14 +277,14 @@ DROP TABLE IF EXISTS `paragraph_format`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!40101 SET character_set_client = utf8 */;
 CREATE TABLE `paragraph_format` (
-    `id` int(11) NOT NULL AUTO_INCREMENT,
-    `indent_from_left` int(11),
-    `indent_from_right` int(11),
-    `first_line_indent` int(11),
-    `lvl` int(11),
-    PRIMARY KEY (`id`)
+    `id` int(11) NOT NULL,
+    `token` varchar(255) NOT NULL,
+    `indent_from_left` int,
+    `indent_from_right` int,
+    `first_line_indent` int,
+    `lvl` varchar(255),
+    PRIMARY KEY (`id`, `token`)
 )   ENGINE=MyISAM
-    AUTO_INCREMENT = 2
     DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
@@ -302,7 +294,7 @@ CREATE TABLE `paragraph_format` (
 
 LOCK TABLES `paragraph_format` WRITE;
 /*!40000 ALTER TABLE `paragraph_format` DISABLE KEYS */;
-INSERT INTO `paragraph_format` VALUES (1, 0, 0, 0, 0);
+INSERT INTO `paragraph_format` VALUES (1, '样例', 1, 0, 0, 0);
 /*!40000 ALTER TABLE `paragraph_format` ENABLE KEYS */;
 UNLOCK TABLES;
 /*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
@@ -325,16 +317,18 @@ DROP TABLE IF EXISTS `font_format`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!40101 SET character_set_client = utf8 */;
 CREATE TABLE `font_format` (
-    `id` int(11) NOT NULL AUTO_INCREMENT,
+    `id` int(11) NOT NULL,
+    `paragraph_id` int(11) NOT NULL,
+    `token` varchar(255) NOT NULL,
+    `text` varchar(255),
     `color` varchar(255),
-    `font_size` int(11),
+    `font_size` double,
     `font_name` int(11),
     `is_bold` int(1) DEFAULT 0,
     `is_italic` int(1) DEFAULT 0,
     `font_alignment` int(11),
-    PRIMARY KEY (`id`)
+    PRIMARY KEY (`id`, `paragraph_id`, `token`)
 )   ENGINE=MyISAM
-    AUTO_INCREMENT=2
     DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
@@ -344,7 +338,7 @@ CREATE TABLE `font_format` (
 
 LOCK TABLES `font_format` WRITE;
 /*!40000 ALTER TABLE `font_format` DISABLE KEYS */;
-INSERT INTO `font_format` VALUES (1, '绿', 0, 0, 0, 0, 0);
+INSERT INTO `font_format` VALUES (1, 1, '样例', 'exp', '绿', 0, 0, 0, 0, 0);
 /*!40000 ALTER TABLE `font_format` ENABLE KEYS */;
 UNLOCK TABLES;
 /*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;

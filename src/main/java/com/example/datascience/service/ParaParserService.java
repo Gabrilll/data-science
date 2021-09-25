@@ -1,8 +1,10 @@
 package com.example.datascience.service;
 
-import com.example.datascience.pojo.font.FontFormat;
-import com.example.datascience.pojo.para.ParaFormat;
-import com.example.datascience.pojo.para.ParaInfo;
+import com.example.datascience.pojo.vo.FontInfo;
+import com.example.datascience.pojo.vo.ParagraphInfo;
+import jdk.nashorn.internal.ir.LiteralNode;
+import org.apache.poi.xwpf.usermodel.XWPFDocument;
+import org.apache.poi.xwpf.usermodel.XWPFParagraph;
 
 import java.io.FileInputStream;
 import java.util.List;
@@ -17,7 +19,7 @@ public interface ParaParserService {
      * @param token token
      * @return all para info
      */
-    public List<ParaInfo> getAllParas(String token);
+    public List<ParagraphInfo> getAllParas(String token);
 
     /**
      * get all paragraphs in docx
@@ -25,15 +27,7 @@ public interface ParaParserService {
      * @param fileInputStream input
      * @return all para info
      */
-    List<ParaInfo> getAllParasInDocx(FileInputStream fileInputStream, String token);
-
-    /**
-     * get all paragraphs in doc
-     *
-     * @param fileInputStream input
-     * @return all para info
-     */
-    List<ParaInfo> getAllParasInDoc(FileInputStream fileInputStream, String token);
+    void ParasParserInDocx(FileInputStream fileInputStream, String token);
 
     /**
      * get targeted paragraph
@@ -41,11 +35,13 @@ public interface ParaParserService {
      * @param paragraphId paragraph id
      * @return para info
      */
-    public List<ParaInfo> getPara(String token, int paragraphId);
+    public List<ParagraphInfo> getPara(String token, int paragraphId);
 
-    public List<ParaFormat> getParaFormat(String token, int paragraph_id);
+    public List<ParagraphInfo> getParaFormat(String token, int paragraph_id);
 
-    public List<FontFormat> getFontFormat(String token, int paragraph_id);
+    public List<FontInfo> getFontFormat(String token, int paragraph_id);
+
+    public void tableParaParser(XWPFDocument doc, XWPFParagraph para, int paragraph_id, int table_id, String token, boolean isTableRowEnd);
 
 //    public List<>
 }

@@ -1,4 +1,6 @@
-package com.example.datascience.pojo.po;
+package com.example.datascience.pojo.po.paragraph;
+
+import com.example.datascience.pojo.po.Font.FontFormat;
 
 /**
  * ParagraphDetail = Paragraph + ParagraphFormat + FontFormat
@@ -14,10 +16,10 @@ public class ParagraphDetail {
     private Integer indentFromLeft;
     private Integer indentFromRight;
     private Integer firstLineIndent;
-    private Integer lvl;
+    private String lvl;
 
     private String color;
-    private Integer fontSize;
+    private Double fontSize;
     private String fontName;
     private Boolean isBold;
     private Boolean isItalic;
@@ -119,11 +121,11 @@ public class ParagraphDetail {
         this.firstLineIndent = firstLineIndent;
     }
 
-    public Integer getLvl() {
+    public String getLvl() {
         return lvl;
     }
 
-    public void setLvl(Integer lvl) {
+    public void setLvl(String lvl) {
         this.lvl = lvl;
     }
 
@@ -135,11 +137,11 @@ public class ParagraphDetail {
         this.color = color;
     }
 
-    public Integer getFontSize() {
+    public Double getFontSize() {
         return fontSize;
     }
 
-    public void setFontSize(Integer fontSize) {
+    public void setFontSize(Double fontSize) {
         this.fontSize = fontSize;
     }
 

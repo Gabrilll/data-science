@@ -1,39 +1,34 @@
-package com.example.datascience.pojo.po;
+package com.example.datascience.pojo.vo;
 
-import javax.persistence.*;
+/**
+ * @author Ray
+ */
+import io.swagger.annotations.ApiModel;
 
-@Entity
-public class FontFormat {
-    @Id
-    @GeneratedValue
-    private Integer id;
-    @Column(name = "color")
-    private String color;
-    @Column(name = "font_size")
+@ApiModel("字体详细信息")
+public class FontInfo {
+    private String paragraphText;
+    private Integer paragraphId;
     private Integer fontSize;
-    @Column(name = "font_name")
     private String fontName;
-    @Column(name = "is_bold")
     private Boolean isBold;
-    @Column(name = "is_italic")
     private Boolean isItalic;
-    @Column(name = "font_alignment")
-    private Integer fontAlignment;
+    private String fontAlignment;
 
-    public Integer getId() {
-        return id;
+    public String getParagraphText() {
+        return paragraphText;
     }
 
-    public void setId(Integer id) {
-        this.id = id;
+    public void setParagraphText(String paragraphText) {
+        this.paragraphText = paragraphText;
     }
 
-    public String getColor() {
-        return color;
+    public Integer getParagraphId() {
+        return paragraphId;
     }
 
-    public void setColor(String color) {
-        this.color = color;
+    public void setParagraphId(Integer paragraphId) {
+        this.paragraphId = paragraphId;
     }
 
     public Integer getFontSize() {
@@ -68,11 +63,11 @@ public class FontFormat {
         isItalic = italic;
     }
 
-    public Integer getFontAlignment() {
+    public String getFontAlignment() {
         return fontAlignment;
     }
 
-    public void setFontAlignment(Integer fontAlignment) {
+    public void setFontAlignment(String fontAlignment) {
         this.fontAlignment = fontAlignment;
     }
 }
