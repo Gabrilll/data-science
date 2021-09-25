@@ -12,6 +12,8 @@ public class ParagraphFormat {
     private Integer id;
     @Id
     private String token;
+    @Column(name = "line_spacing")
+    private Double lineSpacing;
     @Column(name = "indent_from_left")
     private Integer indentFromLeft;
     @Column(name = "indent_from_right")
@@ -35,6 +37,14 @@ public class ParagraphFormat {
 
     public void setToken(String token) {
         this.token = token;
+    }
+
+    public Double getLineSpacing() {
+        return lineSpacing;
+    }
+
+    public void setLineSpacing(Double lineSpacing) {
+        this.lineSpacing = lineSpacing;
     }
 
     public Integer getIndentFromLeft() {

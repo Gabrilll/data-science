@@ -10,7 +10,8 @@ import com.example.datascience.pojo.po.paragraph.Paragraph;
 import com.example.datascience.pojo.po.paragraph.ParagraphFormat;
 import com.example.datascience.pojo.po.title.Title;
 import com.example.datascience.pojo.vo.FontInfo;
-import com.example.datascience.pojo.vo.ParagraphInfo;
+import com.example.datascience.pojo.vo.ParaFormatInfo;
+import com.example.datascience.pojo.vo.ParaInfo;
 import com.example.datascience.service.ParaParserService;
 import org.apache.poi.xwpf.usermodel.XWPFDocument;
 import org.apache.poi.xwpf.usermodel.XWPFParagraph;
@@ -21,6 +22,7 @@ import lombok.extern.slf4j.Slf4j;
 
 
 import java.io.FileInputStream;
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -43,8 +45,13 @@ public class ParaParserServiceImpl implements ParaParserService {
         this.titleRepository = titleRepository;
     }
     @Override
-    public List<ParagraphInfo> getAllParas(String token) {
-        return null;
+    public List<ParaInfo> getAllParas(String token) {
+        ArrayList<ParaInfo> allParaInfos = new ArrayList<>();
+        List<Paragraph> paras = paragraphRepository.findParasByToken(token);
+        for (Paragraph para: paras) {
+            allParaInfos.add(new ParaInfo(para));
+        }
+        return allParaInfos;
     }
 
     @Override
@@ -75,18 +82,23 @@ public class ParaParserServiceImpl implements ParaParserService {
     }
 
     @Override
-    public List<ParagraphInfo> getPara(String token, int paragraphId) {
-        return null;
+    public ParaInfo getPara(String token, int paragraphId) {
+        return new ParaInfo(paragraphRepository.findParaByTokenId(token, paragraphId));
     }
 
     @Override
-    public List<ParagraphInfo> getParaFormat(String token, int paragraph_id) {
-        return null;
+    public ParaFormatInfo getParaFormat(String token, int paragraph_id) {
+        return new ParaFormatInfo(paragraphFormatRepository.findParaFormatByKey(paragraph_id, token));
     }
 
     @Override
     public List<FontInfo> getFontFormat(String token, int paragraph_id) {
-        return null;
+        ArrayList<FontInfo> allFontInfos = new ArrayList<>();
+        List<FontFormat> fonts = fontFormatRepository.findFontFormatsByKey(token, paragraph_id);
+        for (FontFormat font: fonts) {
+            allFontInfos.add(new FontInfo(font));
+        }
+        return allFontInfos;
     }
 
     @Override
@@ -124,6 +136,7 @@ public class ParaParserServiceImpl implements ParaParserService {
 //        }
         paragraph_format.setToken(token);
         paragraph_format.setId(paragraph_id);
+        paragraph_format.setLineSpacing(para.getSpacingBetween());
         paragraph_format.setFirstLineIndent(para.getFirstLineIndent());
         paragraph_format.setIndentFromLeft(para.getIndentFromRight());
         paragraph_format.setIndentFromRight(para.getIndentFromRight());
@@ -140,6 +153,10 @@ public class ParaParserServiceImpl implements ParaParserService {
         if(isInTable) {
             paragraph.setTableId(table_id);
             paragraph.setTableRowEnd(isTableRowEnd);
+        }
+        else {
+            paragraph.setTableId(-1);
+            paragraph.setTableRowEnd(false);
         }
         paragraphRepository.save(paragraph);
 

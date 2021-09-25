@@ -61,7 +61,7 @@ CREATE TABLE `paragraph` (
     `text` varchar(255) DEFAULT NULL,
     `is_table_row_end` int(1) DEFAULT 0,
     `is_in_table` int(1) DEFAULT 0,
-    `table_id` int(11),
+    `table_id` int(11) default -1,
     PRIMARY KEY (`id`, `word_token`),
     FOREIGN KEY (`word_token`) references word(`token`),
     FOREIGN KEY (`table_id`) references table_info(`id`)
@@ -281,10 +281,11 @@ DROP TABLE IF EXISTS `paragraph_format`;
 CREATE TABLE `paragraph_format` (
     `id` int(11) NOT NULL,
     `token` varchar(255) NOT NULL,
-    `indent_from_left` int,
-    `indent_from_right` int,
-    `first_line_indent` int,
-    `lvl` varchar(255),
+    `line_spacing` double,
+    `indent_from_left` int DEFAULT 0,
+    `indent_from_right` int DEFAULT 0,
+    `first_line_indent` int DEFAULT 0,
+    `lvl` varchar(255) DEFAULT 'no lvl',
     PRIMARY KEY (`id`, `token`)
 )   ENGINE=MyISAM
     DEFAULT CHARSET=utf8;
@@ -296,7 +297,7 @@ CREATE TABLE `paragraph_format` (
 
 LOCK TABLES `paragraph_format` WRITE;
 /*!40000 ALTER TABLE `paragraph_format` DISABLE KEYS */;
-INSERT INTO `paragraph_format` VALUES (1, '样例', 1, 0, 0, 0);
+INSERT INTO `paragraph_format` VALUES (1, '样例', 1, 0, 0, 0, 0);
 /*!40000 ALTER TABLE `paragraph_format` ENABLE KEYS */;
 UNLOCK TABLES;
 /*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
@@ -323,12 +324,12 @@ CREATE TABLE `font_format` (
     `paragraph_id` int(11) NOT NULL,
     `token` varchar(255) NOT NULL,
     `text` varchar(255),
-    `color` varchar(255),
-    `font_size` double,
-    `font_name` int(11),
+    `color` varchar(255) DEFAULT 'BLACK',
+    `font_size` double DEFAULT 0,
+    `font_name` varchar(255) DEFAULT 'no',
     `is_bold` int(1) DEFAULT 0,
     `is_italic` int(1) DEFAULT 0,
-    `font_alignment` int(11),
+    `font_alignment` int(11) DEFAULT 0,
     PRIMARY KEY (`id`, `paragraph_id`, `token`)
 )   ENGINE=MyISAM
     DEFAULT CHARSET=utf8;

@@ -1,73 +1,30 @@
 package com.example.datascience.pojo.vo;
 
+import com.example.datascience.pojo.po.Font.FontFormat;
+import io.swagger.models.auth.In;
+import lombok.AllArgsConstructor;
+import lombok.Data;
+import lombok.NoArgsConstructor;
+
 /**
  * @author Ray
  */
-import io.swagger.annotations.ApiModel;
 
-@ApiModel("字体详细信息")
+@Data
+@AllArgsConstructor
+@NoArgsConstructor
 public class FontInfo {
     private String paragraphText;
     private Integer paragraphId;
-    private Integer fontSize;
+    private String color;
+    private Double fontSize;
     private String fontName;
     private Boolean isBold;
     private Boolean isItalic;
-    private String fontAlignment;
+    private Integer fontAlignment;
 
-    public String getParagraphText() {
-        return paragraphText;
+    public FontInfo(FontFormat fontFormat) {
+        this(fontFormat.getText(), fontFormat.getParagraph_id(), fontFormat.getColor(), fontFormat.getFontSize(), fontFormat.getFontName(), fontFormat.getIsBold(), fontFormat.getIsItalic(), fontFormat.getFontAlignment());
     }
 
-    public void setParagraphText(String paragraphText) {
-        this.paragraphText = paragraphText;
-    }
-
-    public Integer getParagraphId() {
-        return paragraphId;
-    }
-
-    public void setParagraphId(Integer paragraphId) {
-        this.paragraphId = paragraphId;
-    }
-
-    public Integer getFontSize() {
-        return fontSize;
-    }
-
-    public void setFontSize(Integer fontSize) {
-        this.fontSize = fontSize;
-    }
-
-    public String getFontName() {
-        return fontName;
-    }
-
-    public void setFontName(String fontName) {
-        this.fontName = fontName;
-    }
-
-    public Boolean getBold() {
-        return isBold;
-    }
-
-    public void setBold(Boolean bold) {
-        isBold = bold;
-    }
-
-    public Boolean getItalic() {
-        return isItalic;
-    }
-
-    public void setItalic(Boolean italic) {
-        isItalic = italic;
-    }
-
-    public String getFontAlignment() {
-        return fontAlignment;
-    }
-
-    public void setFontAlignment(String fontAlignment) {
-        this.fontAlignment = fontAlignment;
-    }
 }

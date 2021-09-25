@@ -1,6 +1,8 @@
 package com.example.datascience.service;
 
 import com.example.datascience.pojo.vo.FontInfo;
+import com.example.datascience.pojo.vo.ParaFormatInfo;
+import com.example.datascience.pojo.vo.ParaInfo;
 import com.example.datascience.pojo.vo.ParagraphInfo;
 import jdk.nashorn.internal.ir.LiteralNode;
 import org.apache.poi.xwpf.usermodel.XWPFDocument;
@@ -19,7 +21,7 @@ public interface ParaParserService {
      * @param token token
      * @return all para info
      */
-    public List<ParagraphInfo> getAllParas(String token);
+    public List<ParaInfo> getAllParas(String token);
 
     /**
      * get all paragraphs in docx
@@ -35,9 +37,9 @@ public interface ParaParserService {
      * @param paragraphId paragraph id
      * @return para info
      */
-    public List<ParagraphInfo> getPara(String token, int paragraphId);
+    public ParaInfo getPara(String token, int paragraphId);
 
-    public List<ParagraphInfo> getParaFormat(String token, int paragraph_id);
+    public ParaFormatInfo getParaFormat(String token, int paragraph_id);
 
     public List<FontInfo> getFontFormat(String token, int paragraph_id);
 
