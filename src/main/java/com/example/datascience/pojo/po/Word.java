@@ -11,6 +11,14 @@ public class Word implements Serializable {
     @Column(name = "text")
     private String text;
 
+    public Word() {
+    }
+
+    public Word(String token, String text) {
+        this.token = token;
+        this.text = text;
+    }
+
     public String getToken() {
         return token;
     }

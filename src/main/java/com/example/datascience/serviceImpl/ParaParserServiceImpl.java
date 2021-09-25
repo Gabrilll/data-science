@@ -1,7 +1,7 @@
 package com.example.datascience.serviceImpl;
 
 import com.example.datascience.dao.FontFormatRepository;
-import com.example.datascience.dao.TitleRepository;
+import com.example.datascience.dao.title.TitleRepository;
 import com.example.datascience.dao.paragraph.ParagraphFormatRepository;
 import com.example.datascience.dao.paragraph.ParagraphRepository;
 import com.example.datascience.pojo.po.Font.FontFormat;

@@ -25,7 +25,8 @@ public class TitleController {
         try {
             List<TitleInfo> titles = titleService.getTitles(token);
             return Response.success(titles);
-        } catch(Exception e) {
+        } catch (Exception e) {
+            e.printStackTrace();
             return Response.error(e.getMessage());
         }
     }
