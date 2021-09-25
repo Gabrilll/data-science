@@ -15,6 +15,7 @@ public class Title {
     private String wordToken;
     @Column(name = "text")
     private String text;
+    private Integer paragraph_end;
 
     public Integer getId() {
         return id;
@@ -38,6 +39,14 @@ public class Title {
 
     public void setText(String text) {
         this.text = text;
+    }
+
+    public Integer getParagraph_end() {
+        return paragraph_end;
+    }
+
+    public void setParagraph_end(Integer paragraph_end) {
+        this.paragraph_end = paragraph_end;
     }
 
 }

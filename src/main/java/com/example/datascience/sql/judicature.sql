@@ -242,6 +242,7 @@ CREATE TABLE `title` (
      `id` int(11) NOT NULL,
      `word_token` varchar(255) NOT NULL,
      `text` varchar(225),
+     `paragraph_end` int(11) DEFAULT 0,
      PRIMARY KEY (`id`, `word_token`),
      FOREIGN KEY (`word_token`) references word(`token`)
 )   ENGINE=MyISAM
@@ -255,7 +256,7 @@ CREATE TABLE `title` (
 
 LOCK TABLES `title` WRITE;
 /*!40000 ALTER TABLE `title` DISABLE KEYS */;
-INSERT INTO `title` VALUES (1, '样例', '样例');
+INSERT INTO `title` VALUES (1, '样例', '样例', 0);
 /*!40000 ALTER TABLE `title` ENABLE KEYS */;
 UNLOCK TABLES;
 /*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
