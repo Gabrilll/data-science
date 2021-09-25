@@ -55,9 +55,8 @@ public class ParaParserServiceImpl implements ParaParserService {
     }
 
     @Override
-    public void ParasParserInDocx(FileInputStream fileInputStream, String token) {
+    public void ParasParserInDocx(XWPFDocument document, String token) {
         try{
-            XWPFDocument document=new XWPFDocument(fileInputStream);
             List<XWPFParagraph> paras = document.getParagraphs(); //将得到包含段落列表
             int len = paras.size();
             int pos = 1;
@@ -152,7 +151,8 @@ public class ParaParserServiceImpl implements ParaParserService {
 //        paragraph_format.setLvl(para.getStyleID() + "");
         paragraph_format.setLvl(getTitleLvl(doc, para));
         paragraphFormatRepository.save(paragraph_format);
-        paragraph.setText(para.getNumLevelText() + para.getText());
+        String lvlText = para.getNumLevelText() == null ? para.getText(): para.getNumLevelText() + ": " + para.getText();
+        paragraph.setText(lvlText);
         paragraph.setId(paragraph_id);
         paragraph.setWordToken(token);
         paragraph.setInTable(isInTable);
