@@ -102,15 +102,17 @@ DROP TABLE IF EXISTS `image`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!40101 SET character_set_client = utf8 */;
 CREATE TABLE `image` (
-     `id` int(11) NOT NULL AUTO_INCREMENT,
+     `id` varchar(50) NOT NULL,
      `word_token` varchar(255) NOT NULL,
      `paragraph_id_before` int(11),
      `paragraph_id_after` int(11),
-     `name` varchar(255),
+     `text_before` text,
+     `text_after` text,
+     `filename` varchar(255),
      `suggest_file_ext` varchar(255),
-     `width` int(11),
-     `height` int(11),
-     `base64_content` varchar(255),
+     `width` double,
+     `height` double,
+     `base64_content` blob,
      PRIMARY KEY (`id`, `word_token`),
      FOREIGN KEY (`word_token`) references word(`token`),
      FOREIGN KEY (`paragraph_id_before`) references paragraph(`id`),
@@ -126,8 +128,8 @@ CREATE TABLE `image` (
 
 LOCK TABLES `image` WRITE;
 /*!40000 ALTER TABLE `image` DISABLE KEYS */;
-INSERT INTO `image` VALUES (1, '样例', 1, 2, '样例1', null, 0, 0, null),
-                           (2, 'sample', 1, 2, 'sample2', null, 0, 0, null);
+INSERT INTO `image` VALUES (1, '样例', 1, 2, 'tmp','tmp','样例1', null, 0, 0, null),
+                           (2, 'sample', 1, 2, 'tmp','tmp','sample2', null, 0, 0, null);
 /*!40000 ALTER TABLE `image` ENABLE KEYS */;
 UNLOCK TABLES;
 /*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;

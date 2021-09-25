@@ -4,6 +4,7 @@ import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
+import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Id;
 import javax.persistence.IdClass;
@@ -21,12 +22,18 @@ public class TableContent implements Serializable {
     @Id
     private Integer id;
     @Id
-    private Integer table_id;
+    @Column(name = "table_id")
+    private Integer tableId;
 
     @Id
-    private String word_token;
+    @Column(name = "word_token")
+    private String token;
 
-    private Integer row_num;
-    private Integer col_num;
+    @Column(name = "row_num")
+    private Integer row;
+
+    @Column(name = "col_num")
+    private Integer col;
+
     private String text;
 }

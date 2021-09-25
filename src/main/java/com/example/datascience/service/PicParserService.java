@@ -27,5 +27,10 @@ public interface PicParserService {
      */
     public List<PicInfo> getAllPics(String token,int paragraphId);
 
-//    public List<>
+    /**
+     * parse all pics
+     * @param xwpfDocument document
+     * @param token token
+     */
+    public void parseAllPics(XWPFDocument xwpfDocument,String token);
 }
