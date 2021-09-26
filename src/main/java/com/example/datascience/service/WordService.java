@@ -1,6 +1,7 @@
 package com.example.datascience.service;
 
 import com.example.datascience.constant.FileExt;
+import com.example.datascience.pojo.CommonInfo;
 import com.example.datascience.pojo.Response;
 import com.example.datascience.pojo.vo.WordInfo;
 
@@ -16,4 +17,6 @@ public interface WordService {
     InputStream convertDocToDocx(InputStream inputStream);
 
     InputStream convertPDFToDocx(InputStream inputStream);
+
+    Response<CommonInfo> deleteWord(String token);
 }

@@ -82,7 +82,6 @@ public class WordController {
     @ApiOperation("12.删除文档(释放资源)")
     @DeleteMapping("/word_parser/{token}")
     public Response<CommonInfo> deleteWord(@PathVariable String token) {
-//        TODO: 实现
-        return Response.success(new CommonInfo(true));
+        return wordService.deleteWord(token);
     }
 }

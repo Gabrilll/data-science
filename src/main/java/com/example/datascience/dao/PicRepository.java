@@ -34,4 +34,6 @@ public interface PicRepository extends JpaRepository<Picture, PicKey> {
      */
     @Query("select i from image i where i.token=:token and i.paragraphIdBefore+1>=:startId and i.paragraphIdAfter-1<:endId")
     List<Picture> findPicturesByTokenAndIdBetween(@Param("token") String token, @Param("startId") Integer startId, @Param("endId") Integer endId);
+
+    void deleteByToken(String token);
 }

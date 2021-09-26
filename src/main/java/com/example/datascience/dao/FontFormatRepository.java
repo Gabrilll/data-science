@@ -18,4 +18,6 @@ import java.util.List;
 @Repository
 public interface FontFormatRepository extends JpaRepository<FontFormat, FontFormatKey> {
     List<FontFormat> findAllByTokenAndParagraphId(String token, Integer paragraphId);
+
+    void deleteByToken(String token);
 }
