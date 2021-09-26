@@ -20,4 +20,6 @@ public interface ParagraphFormatRepository extends JpaRepository<ParagraphFormat
     ParagraphFormat findByIdAndToken(Integer id, String token);
 
     List<ParagraphFormat> findAllByTokenAndLvl(String token, String lvl);
+
+    void deleteByToken(String token);
 }

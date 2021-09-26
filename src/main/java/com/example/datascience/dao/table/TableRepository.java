@@ -34,4 +34,6 @@ public interface TableRepository extends JpaRepository<Table, TableKey> {
      */
     @Query("select t from table_info t where t.token=:token and t.id>=:startId and t.id<:endId")
     List<Table> findTablesByTokenAndIdBetween(@Param("token") String token, @Param("startId") Integer startId, @Param("endId") Integer endId);
+
+    void deleteByToken(String token);
 }

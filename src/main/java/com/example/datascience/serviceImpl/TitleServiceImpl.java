@@ -2,13 +2,9 @@ package com.example.datascience.serviceImpl;
 
 import com.example.datascience.dao.paragraph.ParagraphFormatRepository;
 import com.example.datascience.dao.title.TitleRepository;
-import com.example.datascience.dao.title.TitleWithFormatRepository;
 import com.example.datascience.pojo.po.paragraph.ParagraphFormat;
 import com.example.datascience.pojo.po.paragraph.ParagraphFormatKey;
-import com.example.datascience.pojo.po.paragraph.ParagraphKey;
 import com.example.datascience.pojo.po.title.Title;
-import com.example.datascience.pojo.po.title.TitleKey;
-import com.example.datascience.pojo.po.title.TitleWithFormat;
 import com.example.datascience.pojo.vo.TitleInfo;
 import com.example.datascience.service.TitleService;
 import com.example.datascience.utils.LogUtils;
@@ -16,10 +12,8 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
-import java.util.function.Predicate;
 import java.util.stream.Collectors;
 
 @Service

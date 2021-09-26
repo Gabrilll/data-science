@@ -3,7 +3,15 @@ package com.example.datascience.serviceImpl;
 import com.aspose.words.Document;
 import com.aspose.words.SaveFormat;
 import com.example.datascience.constant.FileExt;
+import com.example.datascience.dao.FontFormatRepository;
+import com.example.datascience.dao.PicRepository;
 import com.example.datascience.dao.WordRepository;
+import com.example.datascience.dao.paragraph.ParagraphFormatRepository;
+import com.example.datascience.dao.paragraph.ParagraphRepository;
+import com.example.datascience.dao.table.TableContentRepository;
+import com.example.datascience.dao.table.TableRepository;
+import com.example.datascience.dao.title.TitleRepository;
+import com.example.datascience.pojo.CommonInfo;
 import com.example.datascience.pojo.Response;
 import com.example.datascience.pojo.po.Word;
 import com.example.datascience.pojo.vo.WordInfo;
@@ -19,6 +27,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 
+import javax.transaction.Transactional;
 import java.io.*;
 
 @Service
@@ -34,8 +43,23 @@ public class WordServiceImpl implements WordService {
     private PicParserService picParserService;
     @Autowired
     private TableParserService tableParserService;
+
     @Autowired
     private WordRepository wordRepository;
+    @Autowired
+    private ParagraphFormatRepository paragraphFormatRepository;
+    @Autowired
+    private ParagraphRepository paragraphRepository;
+    @Autowired
+    private TableContentRepository tableContentRepository;
+    @Autowired
+    private TableRepository tableRepository;
+    @Autowired
+    private TitleRepository titleRepository;
+    @Autowired
+    private FontFormatRepository fontFormatRepository;
+    @Autowired
+    private PicRepository picRepository;
 
     @Override
     public String loadFile(String fileName, FileExt ext, byte[] bytes) {
@@ -139,5 +163,24 @@ public class WordServiceImpl implements WordService {
         }
 
         return readFile(path);
+    }
+
+    @Transactional
+    @Override
+    public Response<CommonInfo> deleteWord(String token) {
+        try {
+            wordRepository.deleteByToken(token);
+            paragraphRepository.deleteByWordToken(token);
+            paragraphRepository.deleteByWordToken(token);
+            tableContentRepository.deleteByToken(token);
+            tableRepository.deleteByToken(token);
+            titleRepository.deleteByWordToken(token);
+            fontFormatRepository.deleteByToken(token);
+            picRepository.deleteByToken(token);
+            return Response.success(new CommonInfo(true));
+        } catch (Exception e) {
+            e.printStackTrace();
+            return Response.error(e.getMessage());
+        }
     }
 }

@@ -17,4 +17,6 @@ public interface ParagraphRepository extends JpaRepository<Paragraph, ParagraphK
 
     @Query("select i from Paragraph i where i.wordToken=:token and i.id=:paragraphId")
     Paragraph findParaByTokenId(@Param("token") String token, @Param("paragraphId") Integer paragraphId);
+
+    void deleteByWordToken(String token);
 }

@@ -12,4 +12,6 @@ public interface TitleRepository extends JpaRepository<Title, TitleKey> {
     Title findById(Integer id);
 
     List<Title> findAllByWordToken(String wordToken);
+
+    void deleteByWordToken(String token);
 }
