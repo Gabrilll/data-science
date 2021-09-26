@@ -60,8 +60,8 @@ public class ParaParserServiceImpl implements ParaParserService {
             int len = paras.size();
             int pos = 1;
             ParaDocLen paraLen = new ParaDocLen();
-            paraLen.setLen(len);
-            paraLen.setToken(token);
+//            paraLen.setLen(len);
+//            paraLen.setToken(token);
             boolean isH = false;
             Title title = new Title();
             for (XWPFParagraph para: paras) {
