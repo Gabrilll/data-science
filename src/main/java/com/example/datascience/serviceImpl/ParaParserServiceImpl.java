@@ -62,23 +62,28 @@ public class ParaParserServiceImpl implements ParaParserService {
             ParaDocLen paraLen = new ParaDocLen();
             paraLen.setLen(len);
             paraLen.setToken(token);
-            int lastPos = 0;
+            boolean isH = false;
+            Title title = new Title();
             for (XWPFParagraph para: paras) {
                 String titleLvl = getTitleLvl(document, para);//获取段落级别
                 if("a5".equals(titleLvl)||"HTML".equals(titleLvl)||"".equals(titleLvl)||null==titleLvl){
                     titleLvl = "";
                 }
                 if(!"".equals(titleLvl)){
-                    Title title = new Title();
+                    if (isH) {
+                        title.setParagraph_end(pos);
+                        titleRepository.save(title);
+                    }
+                    isH = true;
+                    title = new Title();
                     title.setId(pos);
-                    title.setParagraph_end(lastPos);
-                    lastPos = pos;
                     title.setWordToken(token);
                     title.setText(para.getText());
-                    titleRepository.save(title);
                 }
                 hanlePara(document, para, pos++, 0, token, false, false);
             }
+            title.setParagraph_end(pos);
+            titleRepository.save(title);
         }
         catch (Exception e){
             log.error("");
@@ -182,9 +187,9 @@ public class ParaParserServiceImpl implements ParaParserService {
             font_format.setId(cnt);
             font_format.setParagraphId(paragraph_id);
             font_format.setToken(token);
-            font_format.setColor(run.getColor());
+            font_format.setColor(run.getColor()==null? "黑色" : run.getColor());
             font_format.setFontSize(run.getFontSizeAsDouble());
-            font_format.setFontName(run.getFontName()==null? "黑色" : run.getFontName());
+            font_format.setFontName(run.getFontName());
             font_format.setBold(run.isBold());
             font_format.setItalic(run.isItalic());
             font_format.setFontAlignment(run.getKerning());
