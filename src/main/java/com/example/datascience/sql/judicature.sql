@@ -60,7 +60,7 @@ DROP TABLE IF EXISTS `paragraph`;
 CREATE TABLE `paragraph` (
     `id` int(11) NOT NULL,
     `word_token` varchar(255) NOT NULL,
-    `text` varchar(255) DEFAULT NULL,
+    `text` text DEFAULT NULL,
     `is_table_row_end` int(1) DEFAULT 0,
     `is_in_table` int(1) DEFAULT 0,
     `table_id` int(11) default -1,
@@ -114,7 +114,7 @@ CREATE TABLE `image` (
      `suggest_file_ext` varchar(255),
      `width` double,
      `height` double,
-     `base64_content` blob,
+     `base64_content` mediumblob,
      PRIMARY KEY (`id`, `word_token`),
      FOREIGN KEY (`word_token`) references word(`token`),
      FOREIGN KEY (`paragraph_id_before`) references paragraph(`id`),
@@ -243,7 +243,7 @@ DROP TABLE IF EXISTS `title`;
 CREATE TABLE `title` (
      `id` int(11) NOT NULL,
      `word_token` varchar(255) NOT NULL,
-     `text` varchar(225),
+     `text` text,
      `paragraph_end` int(11) DEFAULT 0,
      PRIMARY KEY (`id`, `word_token`),
      FOREIGN KEY (`word_token`) references word(`token`)
@@ -326,7 +326,7 @@ CREATE TABLE `font_format` (
     `id` int(11) NOT NULL,
     `paragraph_id` int(11) NOT NULL,
     `token` varchar(255) NOT NULL,
-    `text` varchar(255),
+    `text` text,
     `color` varchar(255) DEFAULT 'BLACK',
     `font_size` double DEFAULT 0,
     `font_name` varchar(255) DEFAULT 'no',
