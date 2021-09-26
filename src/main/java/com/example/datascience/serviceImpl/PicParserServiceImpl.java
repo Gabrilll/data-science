@@ -46,7 +46,7 @@ public class PicParserServiceImpl implements PicParserService {
 
     @Override
     public List<PicInfo> getAllPics(String token, int paragraphId) {
-        Integer endParaId = titleService.getEndParagraphId(paragraphId);
+        Integer endParaId = titleService.getEndParagraphId(paragraphId,token);
         ArrayList<PicInfo> picInfos = new ArrayList<>();
         List<Picture> pictures = picRepository.findPicturesByTokenAndIdBetween(token, paragraphId, endParaId);
         for (Picture picture : pictures) {
@@ -86,7 +86,7 @@ public class PicParserServiceImpl implements PicParserService {
                     //将b作为输入流；
                     ByteArrayInputStream in = new ByteArrayInputStream(pictureData.getData());
 
-                    //将in作为输入流，读取图片存
+                    //将in作为输入流，读取图片
                     BufferedImage sourceImg = ImageIO.read(in);
                     double width = sourceImg.getWidth();
 

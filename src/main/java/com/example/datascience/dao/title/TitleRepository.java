@@ -9,7 +9,7 @@ import java.util.List;
 
 @Repository
 public interface TitleRepository extends JpaRepository<Title, TitleKey> {
-    Title findById(Integer id);
+    Title findByIdAndWordToken(Integer id,String token);
 
     List<Title> findAllByWordToken(String wordToken);
 

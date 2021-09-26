@@ -54,7 +54,7 @@ public class TableParserServiceImpl implements TableParserService {
     @Override
     public List<TableInfo> getAllTables(String token, int paragraphId) {
         ArrayList<TableInfo> tableInfos = new ArrayList<>();
-        Integer endParaId = titleService.getEndParagraphId(paragraphId);
+        Integer endParaId = titleService.getEndParagraphId(paragraphId,token);
         List<Table> tables = tableRepository.findTablesByTokenAndIdBetween(token, paragraphId, endParaId);
         for (Table table : tables) {
             TableInfo tableInfo = new TableInfo(table);

@@ -52,8 +52,8 @@ public class TitleServiceImpl implements TitleService {
     }
 
     @Override
-    public Integer getEndParagraphId(Integer id) {
-        Title title = titleRepository.findById(id);
+    public Integer getEndParagraphId(Integer id,String token) {
+        Title title = titleRepository.findByIdAndWordToken(id,token);
         return title.getParagraph_end();
     }
 }

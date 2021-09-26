@@ -18,7 +18,8 @@ public class TitleRepositoryTest {
     @Test
     public void testFindById(){
         Integer id=1;
-        Title title=titleRepository.findById(id);
+        String token="样例";
+        Title title=titleRepository.findByIdAndWordToken(id,token);
         String res="";
     }
 }
