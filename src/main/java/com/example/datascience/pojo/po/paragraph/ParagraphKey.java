@@ -12,4 +12,12 @@ public class ParagraphKey implements Serializable {
     private Integer id;
 
     private String wordToken;
+
+    public ParagraphKey() {
+    }
+
+    public ParagraphKey(Integer id, String wordToken) {
+        this.id = id;
+        this.wordToken = wordToken;
+    }
 }

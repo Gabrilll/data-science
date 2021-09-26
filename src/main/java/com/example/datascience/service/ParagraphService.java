@@ -5,5 +5,5 @@ import com.example.datascience.pojo.vo.ParagraphInfo;
 import java.util.List;
 
 public interface ParagraphService {
-    List<ParagraphInfo> getAllParagraphs(String token, Integer paragraphId);
+    List<ParagraphInfo> getAllParagraphsInSameTitle(String token, Integer paragraphId);
 }

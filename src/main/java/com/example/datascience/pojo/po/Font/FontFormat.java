@@ -12,7 +12,7 @@ public class FontFormat {
     private Integer id;
     @Id
     @Column(name = "paragraph_id")
-    private Integer paragraph_id;
+    private Integer paragraphId;
     @Id
     @Column(name = "token")
     private String token;
@@ -95,12 +95,12 @@ public class FontFormat {
         this.token = token;
     }
 
-    public Integer getParagraph_id() {
-        return paragraph_id;
+    public Integer getParagraphId() {
+        return paragraphId;
     }
 
-    public void setParagraph_id(Integer paragraph_id) {
-        this.paragraph_id = paragraph_id;
+    public void setParagraphId(Integer paragraphId) {
+        this.paragraphId = paragraphId;
     }
 
     public String getText() {

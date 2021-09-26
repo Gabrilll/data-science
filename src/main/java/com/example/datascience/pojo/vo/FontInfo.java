@@ -1,7 +1,6 @@
 package com.example.datascience.pojo.vo;
 
 import com.example.datascience.pojo.po.Font.FontFormat;
-import io.swagger.models.auth.In;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -24,7 +23,7 @@ public class FontInfo {
     private Integer fontAlignment;
 
     public FontInfo(FontFormat fontFormat) {
-        this(fontFormat.getText(), fontFormat.getParagraph_id(), fontFormat.getColor(), fontFormat.getFontSize(), fontFormat.getFontName(), fontFormat.getIsBold(), fontFormat.getIsItalic(), fontFormat.getFontAlignment());
+        this(fontFormat.getText(), fontFormat.getParagraphId(), fontFormat.getColor(), fontFormat.getFontSize(), fontFormat.getFontName(), fontFormat.getIsBold(), fontFormat.getIsItalic(), fontFormat.getFontAlignment());
     }
 
 }

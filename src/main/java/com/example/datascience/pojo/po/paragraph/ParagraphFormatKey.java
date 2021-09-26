@@ -12,4 +12,12 @@ public class ParagraphFormatKey implements Serializable {
     private Integer id;
 
     private String token;
+
+    public ParagraphFormatKey() {
+    }
+
+    public ParagraphFormatKey(Integer id, String token) {
+        this.id = id;
+        this.token = token;
+    }
 }

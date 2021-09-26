@@ -7,6 +7,8 @@ import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Repository;
 
+import java.util.List;
+
 /**
  * @author Ray
  */
@@ -14,4 +16,8 @@ import org.springframework.stereotype.Repository;
 public interface ParagraphFormatRepository extends JpaRepository<ParagraphFormat, ParagraphFormatKey> {
     @Query("select i from paragraph_format i where i.id=:paragraph_id and i.token=:token")
     ParagraphFormat findParaFormatByKey(@Param("paragraph_id") Integer paragraph_id, @Param("token") String token);
+
+    ParagraphFormat findByIdAndToken(Integer id, String token);
+
+    List<ParagraphFormat> findAllByTokenAndLvl(String token, String lvl);
 }

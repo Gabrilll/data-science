@@ -17,6 +17,5 @@ import java.util.List;
  */
 @Repository
 public interface FontFormatRepository extends JpaRepository<FontFormat, FontFormatKey> {
-    @Query("select i from font_format i where i.token=:token and i.paragraph_id=:paragraph_id")
-    List<FontFormat> findFontFormatsByKey(@Param("token") String token, @Param("paragraph_id") int paragraph_id);
+    List<FontFormat> findAllByTokenAndParagraphId(String token, Integer paragraphId);
 }

@@ -1,5 +1,6 @@
 package com.example.datascience.pojo.vo;
 
+import com.example.datascience.pojo.po.paragraph.ParagraphFormat;
 import com.example.datascience.pojo.po.title.Title;
 import io.swagger.annotations.ApiModel;
 
@@ -7,20 +8,32 @@ import io.swagger.annotations.ApiModel;
 public class TitleInfo {
     private String paragraphText;
     private Integer paragraphId;
-    private Integer lineSpacing;
+    private Double lineSpacing;
     private Integer indentFromLeft;
     private Integer indentFromRight;
     private Integer firstLineIndent;
-    private Integer lvl;
+    private String lvl;
 
     public TitleInfo() {
     }
 
     public TitleInfo(Title title) {
         this.paragraphId = title.getId();
+        this.paragraphText = title.getText();
     }
 
-    public TitleInfo(String paragraphText, Integer paragraphId, Integer lineSpacing, Integer indentFromLeft, Integer indentFromRight, Integer firstLineIndent, Integer lvl) {
+    public TitleInfo(Title title, ParagraphFormat paragraphFormat) {
+        this.paragraphId = title.getId();
+        this.paragraphText = title.getText();
+        this.lineSpacing = paragraphFormat.getLineSpacing();
+        this.indentFromLeft = paragraphFormat.getIndentFromLeft();
+        this.indentFromRight = paragraphFormat.getIndentFromRight();
+        this.firstLineIndent = paragraphFormat.getFirstLineIndent();
+        this.lvl = paragraphFormat.getLvl();
+    }
+
+
+    public TitleInfo(String paragraphText, Integer paragraphId, Double lineSpacing, Integer indentFromLeft, Integer indentFromRight, Integer firstLineIndent, String lvl) {
         this.paragraphText = paragraphText;
         this.paragraphId = paragraphId;
         this.lineSpacing = lineSpacing;
@@ -46,11 +59,11 @@ public class TitleInfo {
         this.paragraphId = paragraphId;
     }
 
-    public Integer getLineSpacing() {
+    public Double getLineSpacing() {
         return lineSpacing;
     }
 
-    public void setLineSpacing(Integer lineSpacing) {
+    public void setLineSpacing(Double lineSpacing) {
         this.lineSpacing = lineSpacing;
     }
 
@@ -78,11 +91,11 @@ public class TitleInfo {
         this.firstLineIndent = firstLineIndent;
     }
 
-    public Integer getLvl() {
+    public String getLvl() {
         return lvl;
     }
 
-    public void setLvl(Integer lvl) {
+    public void setLvl(String lvl) {
         this.lvl = lvl;
     }
 }

@@ -1,88 +1,49 @@
 package com.example.datascience.pojo.vo;
 
+import com.example.datascience.pojo.po.Font.FontFormat;
+import com.example.datascience.pojo.po.paragraph.Paragraph;
+import com.example.datascience.pojo.po.paragraph.ParagraphFormat;
 import io.swagger.annotations.ApiModel;
+import lombok.Data;
 
 @ApiModel("段落详细信息")
+@Data
 public class ParagraphInfo {
     private String paragraphText;
     private Integer paragraphId;
+    private Double fontSize;
+    private String fontName;
+    private Boolean isBold;
+    private Boolean isItalic;
     private Boolean isInTable;
-    private Integer lvl;
-    private Integer lineSpacing;
+    private String lvl;
+    private Double lineSpacing;
+    private Integer fontAlignment;
     private Boolean isTableRowEnd;
     private Integer indentFromLeft;
     private Integer indentFromRight;
     private Integer firstLineIndent;
 
-    public String getParagraphText() {
-        return paragraphText;
+    public void merge(Paragraph paragraph) {
+        this.paragraphId = paragraph.getId();
+        this.paragraphText = paragraph.getText();
+        this.isInTable = paragraph.getIsInTable();
+        this.isTableRowEnd = paragraph.getIsTableRowEnd();
     }
 
-    public void setParagraphText(String paragraphText) {
-        this.paragraphText = paragraphText;
+    public void merge(ParagraphFormat format) {
+        this.lvl = format.getLvl();
+        this.lineSpacing = format.getLineSpacing();
+        this.indentFromLeft = format.getIndentFromLeft();
+        this.indentFromRight = format.getIndentFromRight();
+        this.firstLineIndent = format.getFirstLineIndent();
     }
 
-    public Integer getParagraphId() {
-        return paragraphId;
-    }
-
-    public void setParagraphId(Integer paragraphId) {
-        this.paragraphId = paragraphId;
-    }
-
-    public Boolean getInTable() {
-        return isInTable;
-    }
-
-    public void setInTable(Boolean inTable) {
-        isInTable = inTable;
-    }
-
-    public Integer getLvl() {
-        return lvl;
-    }
-
-    public void setLvl(Integer lvl) {
-        this.lvl = lvl;
-    }
-
-    public Integer getLineSpacing() {
-        return lineSpacing;
-    }
-
-    public void setLineSpacing(Integer lineSpacing) {
-        this.lineSpacing = lineSpacing;
-    }
-
-    public Boolean getTableRowEnd() {
-        return isTableRowEnd;
-    }
-
-    public void setTableRowEnd(Boolean tableRowEnd) {
-        isTableRowEnd = tableRowEnd;
-    }
-
-    public Integer getIndentFromLeft() {
-        return indentFromLeft;
-    }
-
-    public void setIndentFromLeft(Integer indentFromLeft) {
-        this.indentFromLeft = indentFromLeft;
-    }
-
-    public Integer getIndentFromRight() {
-        return indentFromRight;
-    }
-
-    public void setIndentFromRight(Integer indentFromRight) {
-        this.indentFromRight = indentFromRight;
-    }
-
-    public Integer getFirstLineIndent() {
-        return firstLineIndent;
-    }
-
-    public void setFirstLineIndent(Integer firstLineIndent) {
-        this.firstLineIndent = firstLineIndent;
+    public void merge(FontFormat format) {
+        this.fontSize = format.getFontSize();
+        this.fontName = format.getFontName();
+        this.isBold = format.getIsBold();
+        this.isItalic = format.getIsItalic();
+        this.fontAlignment = format.getFontAlignment();
     }
 }

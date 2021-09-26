@@ -1,8 +1,13 @@
 package com.example.datascience.serviceImpl;
 
+import com.example.datascience.dao.paragraph.ParagraphFormatRepository;
 import com.example.datascience.dao.title.TitleRepository;
 import com.example.datascience.dao.title.TitleWithFormatRepository;
+import com.example.datascience.pojo.po.paragraph.ParagraphFormat;
+import com.example.datascience.pojo.po.paragraph.ParagraphFormatKey;
+import com.example.datascience.pojo.po.paragraph.ParagraphKey;
 import com.example.datascience.pojo.po.title.Title;
+import com.example.datascience.pojo.po.title.TitleKey;
 import com.example.datascience.pojo.po.title.TitleWithFormat;
 import com.example.datascience.pojo.vo.TitleInfo;
 import com.example.datascience.service.TitleService;
@@ -13,36 +18,48 @@ import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
+import java.util.function.Predicate;
+import java.util.stream.Collectors;
 
 @Service
 @Slf4j
 public class TitleServiceImpl implements TitleService {
 
+    @Autowired
     private TitleRepository titleRepository;
-
     @Autowired
-    private TitleWithFormatRepository titleWithFormatRepository;
-
-    @Autowired
-    TitleServiceImpl(TitleRepository titleRepository){
-        this.titleRepository=titleRepository;
-    }
-
+    private ParagraphFormatRepository paragraphFormatRepository;
 
     @Override
     public List<TitleInfo> getTitles(String token) {
-        List<TitleInfo> titleInfoList = new ArrayList<>();
+        List<Title> titleList = titleRepository.findAllByWordToken(token);
+        List<ParagraphFormatKey> formatKeyList = titleList.stream().map(title -> new ParagraphFormatKey(title.getId(), title.getWordToken())).collect(Collectors.toList());
+        List<ParagraphFormat> formatList = paragraphFormatRepository.findAllById(formatKeyList);
 
-        List<TitleWithFormat> list = titleWithFormatRepository.findAllByWordToken(token);
+        LogUtils.printList("[getTitles] titleList <<<<<<<<<<", titleList);
+        LogUtils.printList("[getTitles] formatKeyList <<<<<<<<<<", formatKeyList);
+        LogUtils.printList("[getTitles] formatList <<<<<<<<<<", formatList);
 
-        LogUtils.printList("[getTitles] list <<<<<<<<<<", list);
+        return mergeTitleInfo(titleList, formatList);
+    }
+
+    private List<TitleInfo> mergeTitleInfo(List<Title> titleList, List<ParagraphFormat> formatList) {
+        List<TitleInfo> titleInfoList = titleList.stream().map(title -> {
+            Optional<ParagraphFormat> optionalFormat = formatList.stream().filter(format -> format.getId().equals(title.getId()) && format.getToken().equals(title.getWordToken())).findFirst();
+            if (optionalFormat.isPresent()) {
+                return new TitleInfo(title, optionalFormat.get());
+            } else {
+                return new TitleInfo(title);
+            }
+        }).collect(Collectors.toList());
 
         return titleInfoList;
     }
 
     @Override
-    public Integer getEndParagraphId(Integer id){
-        Title title=titleRepository.findById(id);
+    public Integer getEndParagraphId(Integer id) {
+        Title title = titleRepository.findById(id);
         return title.getParagraph_end();
     }
 }

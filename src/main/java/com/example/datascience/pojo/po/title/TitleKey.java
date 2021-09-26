@@ -20,4 +20,9 @@ public class TitleKey implements Serializable {
         this.id = id;
         this.wordToken = wordToken;
     }
+
+    public TitleKey(Title title) {
+        this.id = title.getId();
+        this.wordToken = title.getWordToken();
+    }
 }

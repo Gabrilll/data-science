@@ -21,7 +21,6 @@ import org.springframework.stereotype.Service;
 import lombok.extern.slf4j.Slf4j;
 
 
-import java.io.FileInputStream;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -99,7 +98,7 @@ public class ParaParserServiceImpl implements ParaParserService {
     @Override
     public List<FontInfo> getFontFormat(String token, int paragraph_id) {
         ArrayList<FontInfo> allFontInfos = new ArrayList<>();
-        List<FontFormat> fonts = fontFormatRepository.findFontFormatsByKey(token, paragraph_id);
+        List<FontFormat> fonts = fontFormatRepository.findAllByTokenAndParagraphId(token, paragraph_id);
         for (FontFormat font: fonts) {
             allFontInfos.add(new FontInfo(font));
         }
@@ -181,7 +180,7 @@ public class ParaParserServiceImpl implements ParaParserService {
         for (XWPFRun run : runsLists) {
             FontFormat font_format = new FontFormat();
             font_format.setId(cnt);
-            font_format.setParagraph_id(paragraph_id);
+            font_format.setParagraphId(paragraph_id);
             font_format.setToken(token);
             font_format.setColor(run.getColor());
             font_format.setFontSize(run.getFontSizeAsDouble());

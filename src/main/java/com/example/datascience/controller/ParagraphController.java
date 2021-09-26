@@ -23,7 +23,7 @@ public class ParagraphController {
     @GetMapping("/{token}/title/{paragraph_id}/all_paragraphs")
     public Response<List<ParagraphInfo>> getAllParagraphs(@PathVariable("token") String token, @PathVariable("paragraph_id") Integer paragraphId) {
         try {
-            List<ParagraphInfo> data = paragraphService.getAllParagraphs(token, paragraphId);
+            List<ParagraphInfo> data = paragraphService.getAllParagraphsInSameTitle(token, paragraphId);
             return Response.success(data);
         } catch(Exception e) {
             e.printStackTrace();
