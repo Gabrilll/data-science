@@ -4,7 +4,6 @@ import com.example.datascience.pojo.Response;
 import com.example.datascience.pojo.vo.FontInfo;
 import com.example.datascience.pojo.vo.ParaFormatInfo;
 import com.example.datascience.pojo.vo.ParaInfo;
-import com.example.datascience.pojo.vo.ParagraphInfo;
 import com.example.datascience.service.ParaParserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -35,8 +34,8 @@ public class ParaParserController {
 
     @GetMapping(value = "{token}/paragraph/{paragraph_id}")
     public Response<ParaInfo> getPara(@PathVariable String token, @PathVariable Integer paragraph_id) {
-        ParaInfo ParaInfo = paraParserService.getPara(token, paragraph_id);
-        return new Response<>(ParaInfo);
+        ParaInfo paraInfo = paraParserService.getPara(token, paragraph_id);
+        return new Response<>(paraInfo);
     }
 
     @GetMapping(value = "{token}/paragraph/{paragraph_id}/paragraph_stype")

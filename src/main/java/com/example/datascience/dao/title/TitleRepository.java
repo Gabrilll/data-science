@@ -7,5 +7,5 @@ import org.springframework.stereotype.Repository;
 
 @Repository
 public interface TitleRepository extends JpaRepository<Title, TitleKey> {
-
+    Title findById(Integer id);
 }

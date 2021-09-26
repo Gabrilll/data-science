@@ -20,7 +20,7 @@ public class PicParseServiceImplTest {
     }
 
     @Test
-    public void testParseAllParagraphs() throws IOException {
+    public void testParseAllPics() throws IOException {
         File file = new File("C:/Users/Gabri/Desktop/test.docx");
         FileInputStream fileInputStream = new FileInputStream(file);
         XWPFDocument document=new XWPFDocument(fileInputStream);

@@ -26,9 +26,9 @@ public interface ParaParserService {
     /**
      * get all paragraphs in docx
      *
-     * @param fileInputStream input
      * @return all para info
      */
+
     void ParasParserInDocx(XWPFDocument document, String token);
 
     /**

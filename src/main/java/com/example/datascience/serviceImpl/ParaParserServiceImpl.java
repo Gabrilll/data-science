@@ -151,7 +151,8 @@ public class ParaParserServiceImpl implements ParaParserService {
 //        paragraph_format.setLvl(para.getStyleID() + "");
         paragraph_format.setLvl(getTitleLvl(doc, para));
         paragraphFormatRepository.save(paragraph_format);
-        paragraph.setText(para.getNumLevelText() + para.getText());
+        String lvlText = para.getNumLevelText() == null ? para.getText(): para.getNumLevelText() + ": " + para.getText();
+        paragraph.setText(lvlText);
         paragraph.setId(paragraph_id);
         paragraph.setWordToken(token);
         paragraph.setInTable(isInTable);
